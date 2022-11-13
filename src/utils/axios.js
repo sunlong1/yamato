@@ -6,23 +6,36 @@ import store from '../store/store'
 axios.defaults.withCredentials=true;
 // axios初始化：延迟时间，主路由地址
 let instance = axios.create({
-  baseURL: 'http://dev-api.bzffs.cc',
-  timeout: 10000,
+  baseURL: 'http://192.168.0.99:8024',
+  timeout: 10000
 });
- 
+
+// console.log(store.state.token)
 // 设置拦截器
-axios.interceptors.request.use(
-  config => {
-    if (store.state.token) {
-      // console.log(store.state.token)
-      config.headers.token = `${store.state.token}`;
-      // config['headers']['Authorization'] = AUTH_TOKEN
-    }
-    return config;
-  },
-  error => {
-    return Promise.reject(error);
-  });
+instance.interceptors.request.use((config) => {
+  // console.log(store.state)
+  console.log(store.state.token)
+  if (store.state.token) {
+    config.headers['authorization'] = 'Bearer '+store.state.token;
+  }
+  config.headers['Content-Type'] = 'application/json'
+  return config
+})
+// axios.interceptors.request.use(
+//   config => {
+//     console.log(88888)
+// 	console.log(store.state.token)
+//     if (store.state.token) {
+//       config.headers.token = store.state.token;
+//     }
+// 	config.headers.withCredentials = true
+// 	config.headers['Content-Type'] = 'application/json'
+//     return config;
+//   },
+//   error => {
+// 	console.log(error)
+//     return Promise.reject(error);
+//   });
 //响应拦截器
 instance.interceptors.response.use(function(response){
   //对响应数据做些事
@@ -72,7 +85,7 @@ export default {
     return instance({
       method: 'post',
       url: url,
-      data: qs.stringify(data),
+      data: data,
       timeout: 30000
     }).then(checkStatus).then(checkCode)
   },

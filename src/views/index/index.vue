@@ -3,18 +3,19 @@
 	  <div class="banner">
 		  <h1 class="top-wedw">动态时序</h1>
 		  <h1 class="bot-ddw"><span>——</span>全球企业 商业信息及数据应用的服务提供商</h1>
+		  <div class="img"><img src="../../assets/index&api/content.png"/></div>
 	  </div>
 	  <div class="our-service">
 		  <h1>我们的服务</h1>
 		  <p class="english">Our service</p>
 		  <ul class="tabs">
 			  <li @click="index=1" v-bind:class="{'active': index===1}">数据服务</li>
-			  <li @click="index=2" v-bind:class="{'active': index===2}">数据监控</li>
+			  <li @click="index=2" v-bind:class="{'active': index===2}">监控服务</li>
 		  </ul>
-		  <div v-if="index===1" class="tab-one">
+		  <div v-show="index===1" class="tab-one">
 			  <img src="../../assets/index&api/service.png">
 		  </div>
-		  <div v-if="index===2" class="tab-two">
+		  <div v-show="index===2" class="tab-two">
 			  <ul>
 				  <li>
 					  <img src="../../assets/index&api/one.png"/>
@@ -134,6 +135,13 @@ export default {
 		  height: 548px;
 		  background: url('../../assets/index&api/banner.png') no-repeat center top;
 		  background-size: 1920px 548px;
+		  .img {
+			  width: 945px;
+			  margin: 8px auto;
+			  img {
+				  width: 100%;
+			  }
+		  }
 		  h1 {
 			  width: 912px;
 			  margin: 0 auto;
@@ -142,7 +150,7 @@ export default {
 		  }
 		  .top-wedw {
 			  text-align: left;
-			  padding-top: 60px;
+			  padding-top: 50px;
 		  }
 		  .bot-ddw {
 			  text-align: right;

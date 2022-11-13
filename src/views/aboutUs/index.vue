@@ -4,10 +4,10 @@
 			<!--banner -->
 			<ul class="list">
 			    <li  v-for="(item,index) in caselist" @click="listChange(index)" >
-			        <router-link :to="item.url" v-bind:class="{'active': $store.state.centerIndex==index}" exact>
+			        <router-link :to="item.url" v-bind:class="{'active': $store.state.aboutIndex==index}" exact>
 			            <div class="box">
 							<div class="wdwdl">
-								<img :src="$store.state.centerIndex==index?item.acIcon:item.icon"/>
+								<img :src="$store.state.aboutIndex==index?item.acIcon:item.icon"/>
 								<p>{{item.name}}</p>
 							</div>
 			            </div>
@@ -28,34 +28,28 @@ export default {
             shows:0,
             caselist:[
                 {
-                    name:"控制台",
-                    url:"/center/case1",
-					icon: require('../../assets/leftAside/777.png'),
-					acIcon: require('../../assets/leftAside/777_.png')
+                    name:"关于我们",
+                    url:"/aboutUs/case1",
+					icon: require('../../assets/leftAside/333_.png'),
+					acIcon: require('../../assets/leftAside/333.png')
                 },
                 {
-                    name:"企业认证",
-                    url:"/center/case2",
-					icon: require('../../assets/leftAside/777.png'),
-					acIcon: require('../../assets/leftAside/777_.png')
+                    name:"用户协议",
+                    url:"/aboutUs/case2",
+					icon: require('../../assets/leftAside/hhh_.png'),
+					acIcon: require('../../assets/leftAside/hhh.png')
                 },
                 {
-                    name:"我的接口",
-                    url:"/center/case3",
-					icon: require('../../assets/leftAside/fff.png'),
-					acIcon: require('../../assets/leftAside/fff_.png')
+                    name:"隐私协议",
+                    url:"/aboutUs/case3",
+					icon: require('../../assets/leftAside/ggg_.png'),
+					acIcon: require('../../assets/leftAside/ggg.png')
                 },
                 {
-                    name:"接口账单",
-                    url:"/center/case4",
-					icon: require('../../assets/leftAside/777.png'),
-					acIcon: require('../../assets/leftAside/777_.png')
-                },
-                {
-                    name:"我的订单",
-                    url:"/center/case5",
-					icon: require('../../assets/leftAside/eee.png'),
-					acIcon: require('../../assets/leftAside/eee_.png')
+                    name:"认证服务协议",
+                    url:"/aboutUs/case4",
+					icon: require('../../assets/leftAside/iii_.png'),
+					acIcon: require('../../assets/leftAside/iii.png')
                 }
             ]
         }
@@ -63,12 +57,10 @@ export default {
     methods:{
 		listChange(index) {
 			console.log(index)
-			this.shows = index
 		}
     },
     mounted(){
-		// this.shows = this.$route.query.id || 0
-		// console.log(this.$store.state.centerIndex)
+		
     }
 }
 </script>
@@ -114,7 +106,8 @@ export default {
 			}
 			.router_box {
 				width: 956px;
-				min-height: 100%;
+				background-color: #fff;
+				min-height: 561px;
 				margin-top: 20px;
 			}
 		}
