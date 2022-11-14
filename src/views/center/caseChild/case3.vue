@@ -72,6 +72,7 @@
 					    <i @click="goSearch" slot="suffix" class="el-input__icon el-icon-search"></i>
 					  </el-input>
 					  <el-tree
+						v-if="treeData.length>0"
 					    :data="treeData"
 					    show-checkbox
 						empty-text="暂无搜索结果"
@@ -266,11 +267,11 @@ export default {
 	  resolveData(arr) {
 		  arr.forEach(item => {
 			  let obj = {}
-			  obj['id'] = item.dimId
+			  obj['id'] = item.dimId + '-666'
 			  obj['label'] = item.dimName
 			  let child = []
 			  item.intfList.forEach(demo => {
-				  child.push({id: demo.id,label: demo.name,checked: demo.applied===1})
+				  child.push({id: demo.id + '-888',label: demo.name,checked: demo.applied===1})
 			  })
 			  obj['children'] = child
 			  this.treeData.push(obj)
