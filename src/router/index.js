@@ -2,31 +2,23 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import index from '@/views/index/index'
 import API from '@/views/api/index'
-import moreAPI from '@/views/api/allApi'
+import allAPI from '@/views/api/allApi'
 import apiDetail from '@/views/api/apiDetail'
 import charge from '@/views/charge/index'
 import center from '@/views/center/index'
-import login from '@/views/login/login'
-import aboutUs from '@/views/aboutUs/aboutUs'
-import contact from '@/views/contact/contact'
-// import news from '@/views/news/news'
-import apiTest from '@/views/apiTest/case'
+import apiTest from '@/views/apiTest/index'
 import Center from '@/views/center/index'
 import case1 from '@/views/center/caseChild/case1'
 import case2 from '@/views/center/caseChild/case2'
 import case3 from '@/views/center/caseChild/case3'
 import case4 from '@/views/center/caseChild/case4'
 import case5 from '@/views/center/caseChild/case5'
-// import case1 from '@/views/apiTest/caseChild/case1'
-// import caseDetail from '@/views/apiTest/caseChild/caseDetail'
-// import case2 from '@/views/apiTest/caseChild/case2'
-import newslist from '@/views/new/newslist'
-import newslist1 from '@/views/new/newslist1'
-import newinfos from '@/views/new/newinfos'
-// import case3 from '@/views/apiTest/caseChild/case3'
-// import case4 from '@/views/apiTest/caseChild/case4'
-// import case5 from '@/views/apiTest/caseChild/case5'
-// import case6 from '@/views/apiTest/caseChild/case6'
+import AboutUs from '@/views/aboutUs/index'
+import item1 from '@/views/aboutUs/caseChild/case1'
+import item2 from '@/views/aboutUs/caseChild/case2'
+import item3 from '@/views/aboutUs/caseChild/case3'
+import item4 from '@/views/aboutUs/caseChild/case4'
+// import Test from '@/components/index'
 
 Vue.use(Router)
 
@@ -42,6 +34,11 @@ export default new Router({
     }
   },
   routes: [
+	// {
+	//   path: '/',
+	//   name: 'test',
+	//   component: Test
+	// },
     {
       path: '/',
       name: 'index',
@@ -53,9 +50,9 @@ export default new Router({
 	  component: API
 	},
 	{
-	  path: '/moreApi',
-	  name: 'moreApi',
-	  component: moreAPI
+	  path: '/allApi',
+	  name: 'allApi',
+	  component: allAPI
 	},
 	{
 	  path: '/apiDetail',
@@ -73,23 +70,8 @@ export default new Router({
 	  component: center
 	},
     {
-      path: '/login',
-      name: 'login',
-      component: login
-    },
-    {
-      path: '/about',
-      name: 'aboutUs',
-      component: aboutUs
-    },
-    {
-      path: '/contact',
-      name: 'contact',
-      component: contact
-    },
-    {
-      path: '/case',
-      name: 'case',
+      path: '/apiTest',
+      name: 'apiTest',
       component: apiTest
     },
 	{
@@ -100,7 +82,7 @@ export default new Router({
 		children:[
 		  {
 		    path:'/center/case1',
-		    component:case1,
+		    component:case1
 		  },
 		  {
 		    path:'/center/case2',
@@ -109,6 +91,7 @@ export default new Router({
 		  {
 		    path:'/center/case3',
 		    component:case3,
+			name: 'myApi'
 		  },
 		  {
 		    path:'/center/case4',
@@ -120,37 +103,30 @@ export default new Router({
 		  }
 		]
 	},
-    {
-      path:'/newslist1',
-      name:newslist,
-      component:newslist,
-      children:[
-        {
-          path:'',
-          name:newslist1,
-          component:newslist1,
-        },
-        {
-          path:'/newslist2',
-          name:newslist1,
-          component:newslist1
-        },
-        {
-          path:'/newslist3',
-          name:newslist1,
-          component:newslist1
-        },
-        {
-          path:'/newslist4',
-          name:newslist1,
-          component:newslist1
-        },
-        {
-          path:'/newslist1/newinfos',
-          name:newinfos,
-          component:newinfos}
-      ]
-    }
+	{
+		path: '/aboutUs',
+		name: 'aboutUs',
+		component: AboutUs,
+		redirect: '/aboutUs/case1',
+		children:[
+		  {
+		    path:'/aboutUs/case1',
+		    component:item1,
+		  },
+		  {
+		    path:'/aboutUs/case2',
+		    component:item2,
+		  },
+		  {
+		    path:'/aboutUs/case3',
+		    component:item3,
+		  },
+		  {
+		    path:'/aboutUs/case4',
+		    component:item4,
+		  }
+		]
+	}
 
   ]
 })

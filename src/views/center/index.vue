@@ -3,14 +3,13 @@
         <div class="more-api-box">
 			<!--banner -->
 			<ul class="list">
-			    <li  v-for="item in caselist" >
-			        <router-link :to="item.url+'?name='+item.name" active-class="active" exact>
+			    <li  v-for="(item,index) in caselist" @click="listChange(index)" >
+			        <router-link :to="item.url" v-bind:class="{'active': $store.state.centerIndex==index}" exact>
 			            <div class="box">
 							<div class="wdwdl">
-								<img :src="item.icon"/>
+								<img :src="$store.state.centerIndex==index?item.acIcon:item.icon"/>
 								<p>{{item.name}}</p>
 							</div>
-							<span>(88)</span>
 			            </div>
 			        </router-link>
 			    </li>
@@ -26,40 +25,50 @@ export default {
 	name: 'center',
     data(){
         return{
-            shows:1,
+            shows:0,
             caselist:[
                 {
                     name:"控制台",
                     url:"/center/case1",
-					icon: require('../../assets/leftAside/111_.png')
+					icon: require('../../assets/leftAside/777.png'),
+					acIcon: require('../../assets/leftAside/777_.png')
                 },
                 {
                     name:"企业认证",
                     url:"/center/case2",
-					icon: require('../../assets/leftAside/111_.png')
+					icon: require('../../assets/leftAside/777.png'),
+					acIcon: require('../../assets/leftAside/777_.png')
                 },
                 {
                     name:"我的接口",
                     url:"/center/case3",
-					icon: require('../../assets/leftAside/111_.png')
+					icon: require('../../assets/leftAside/fff.png'),
+					acIcon: require('../../assets/leftAside/fff_.png')
                 },
                 {
                     name:"接口账单",
                     url:"/center/case4",
-					icon: require('../../assets/leftAside/111_.png')
+					icon: require('../../assets/leftAside/777.png'),
+					acIcon: require('../../assets/leftAside/777_.png')
                 },
                 {
                     name:"我的订单",
                     url:"/center/case5",
-					icon: require('../../assets/leftAside/111_.png')
+					icon: require('../../assets/leftAside/eee.png'),
+					acIcon: require('../../assets/leftAside/eee_.png')
                 }
             ]
         }
     },
     methods:{
-
+		listChange(index) {
+			console.log(index)
+			this.shows = index
+		}
     },
     mounted(){
+		// this.shows = this.$route.query.id || 0
+		// console.log(this.$store.state.centerIndex)
     }
 }
 </script>
@@ -74,9 +83,9 @@ export default {
 			justify-content: space-between;
 			.list {
 				width: 224px;
-				background-color: #fff;
 				margin-top: 20px;
 				li {
+					background-color: #fff;
 					.box {
 					  padding: 14px 20px;
 					  border-bottom: 1px solid #F3F3F3;
@@ -106,7 +115,6 @@ export default {
 			.router_box {
 				width: 956px;
 				min-height: 100%;
-				background-color: #fff;
 				margin-top: 20px;
 			}
 		}

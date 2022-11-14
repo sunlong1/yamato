@@ -13,6 +13,7 @@ import '../static/css/global.css'
 import store from './store/store'
 import VueLazyload from 'vue-lazyload'
 import VueRouter from 'vue-router'
+import Cookies from 'js-cookie'
 Vue.use(VueRouter)
 Vue.use(VueLazyload, {
   preLoad: 1.3,
@@ -23,7 +24,11 @@ Vue.use(VueLazyload, {
 Vue.prototype.$axios = axios;
 Vue.use(ElementUI)
 Vue.use(animated)
-
+Vue.prototype.$cookies = Cookies
+// Vue.prototype.host_url = 'http://192.168.0.99:8027'
+Vue.prototype.host_url = 'http://127.0.0.1:4523/m1/1776245-0-f164c1c8'
+// Vue.prototype.host_url = 'http://127.0.0.1:4523/m1/1776245-0-75618d8d'
+// Vue.prototype.host_url = 'http://127.0.0.1:4523/m1/1776245-0-9382af61'
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
@@ -34,23 +39,23 @@ new Vue({
 })
 // 路由守卫
 router.beforeEach((to, from, next) => {
-  var token = sessionStorage.getItem('token');
-  // 判断路由组件中的某个属性 
-  if (to.meta.requiresAuth === true) {
-    if (token) {
-      return next();
-    } else {
-      return next({name: 'login'});
-    }
-  }
+  // var token = sessionStorage.getItem('token');
+  // // 判断路由组件中的某个属性 
+  // if (to.meta.requiresAuth === true) {
+  //   if (token) {
+  //     return next();
+  //   } else {
+  //     return next({name: 'login'});
+  //   }
+  // }
 
-  if (to.meta.requiresGuest === true) {
-    if (token) {
-      return next({name: 'business'});
-    } else {
-      return next();
-    }
-  }
+  // if (to.meta.requiresGuest === true) {
+  //   if (token) {
+  //     return next({name: 'business'});
+  //   } else {
+  //     return next();
+  //   }
+  // }
 
   next();
 });

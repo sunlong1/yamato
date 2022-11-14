@@ -1,377 +1,553 @@
 <template>
-    <div class="index-box">
-	  <div>
-		  <h1>充值中心</h1>
+    <div class="charge-box">
+	  <div class="dwdwd">
+		  <div class="dwdwd-one">
+			  <div class="iuyttr" v-if="state!=4">
+				  <span>!</span>
+				  <p>您当前未进行企业认证，暂时无法充值。</p>
+				  <router-link to="/center/case2?name=企业认证&id=1">立即认证</router-link>
+			  </div>
+			  
+			  <div class="tgde">
+				  <p class="rtghn">充值金额：</p>
+				  <div class="radios">
+				    <ul>
+				      <li>
+				        <input type="radio"  name="radio" id="radio1" value="100" v-model="form.number" @change="changenumber">
+				        <label for="radio1">
+				          <h6>新用户</h6>
+						  <p>连续3个月 <span>赠100次/天</span></p>
+						  <span class="rtgh">赠</span>
+						  <img class="oiuy" src="../../assets/charge/rrr4.png"/>
+				        </label>
+				      </li>
+				      <li>
+				        <input type="radio"  name="radio" id="radio2" value="500" v-model="form.number">
+				        <label for="radio2">
+				          <h6>500元</h6>
+						  <p>充500元 <span>送50元</span></p>
+						  <span class="rtgh">优惠</span>
+						  <img class="oiuy" src="../../assets/charge/rrr4.png"/>
+				        </label>
+				      </li>
+					  <li>
+					    <input type="radio"  name="radio" id="radio3" value="2000" v-model="form.number">
+					    <label for="radio3">
+					      <h6>2000元</h6>
+						  <p>充2000元 <span>赠200元</span></p>
+						  <span class="rtgh">优惠</span>
+						  <img class="oiuy" src="../../assets/charge/rrr4.png"/>
+					    </label>
+					  </li>
+					  <li>
+					    <input type="radio"  name="radio" id="radio4" value="5000" v-model="form.number">
+					    <label for="radio4">
+					      <h6>5000元</h6>
+						  <p>充5000元 <span>赠1000元</span></p>
+						  <span class="rtgh">优惠</span>
+						  <img class="oiuy" src="../../assets/charge/rrr4.png"/>
+					    </label>
+					  </li>
+					  <li>
+					    <input type="radio"  name="radio" id="radio5" value="10000" v-model="form.number">
+					    <label for="radio5">
+					      <h6>10000元</h6>
+						  <p>充10000元 <span>赠2500元</span></p>
+						  <span class="rtgh">充值推荐</span>
+						  <img class="oiuy" src="../../assets/charge/rrr4.png"/>
+					    </label>
+					  </li>
+					  <li>
+					    <input type="radio"  name="radio" id="radio6" value="20000" v-model="form.number">
+					    <label for="radio6">
+					      <h6>20000元</h6>
+						  <p>充20000元 <span>赠5000元</span></p>
+						  <span class="rtgh">优惠</span>
+						  <img class="oiuy" src="../../assets/charge/rrr4.png"/>
+					    </label>
+					  </li>
+				    </ul>
+				  </div>
+			  </div>
+			  <div class="rghn">
+				  <input type="number" placeholder="自定义金额" v-model="form.money"/>
+				  <span>元</span>
+			  </div>
+			  <div class="deew">
+				  <p>赠送金额：</p>
+				  <span>{{form.number==='100'?'100次/天':form.number==='500'?'50 元':form.number==='2000'?'200 元':form.number==='5000'?'1000 元':form.number==='10000'?'2500 元':form.number==='20000'?'5000 元':'0 元'}}</span>
+			  </div>
+			  <div class="tgde ouytg">
+				  <p class="rtghn">支付方式：</p>
+				  <div class="radios">
+					<ul>
+					  <li>
+						<input type="radio"  name="radio1" id="type1" value="2" v-model="form.type">
+						<label for="type1">
+						  <img class="wdre" src="../../assets/charge/wechat.png"/>
+						  <img class="oiuy" src="../../assets/charge/rrr4.png"/>
+						</label>
+					  </li>
+					  <li>
+						<input type="radio"  name="radio1" id="type2" value="1" v-model="form.type">
+						<label for="type2">
+						  <img class="wdre vddd" src="../../assets/charge/ali.png"/>
+						  <img class="oiuy" src="../../assets/charge/rrr4.png"/>
+						</label>
+					  </li>
+					</ul>
+				  </div>
+			  </div>
+			  <div class="efdd">
+			    <el-checkbox v-model="checked">我已阅读并同意<router-link to="#">《充值服务协议》</router-link></el-checkbox>
+			  </div>
+			  <div class="gdewd">
+				  <el-button @click="repay" type="primary">立即支付</el-button>
+			  </div>
+			  <div v-html="resHtml">
+				  
+			  </div>
+		  </div>
+		  <div class="dwdwd-two">
+			   <div class="rdsss">
+				   <h4>使用流程<span></span></h4>
+				   <img src="../../assets/charge/shouhou.png"/>
+			   </div>
+		  </div>
 	  </div>
-      <foot></foot>
+      
+	  <div class="mengban" v-if="dialogFormVisible">
+		  <div class="iuhgg">
+			  <img class="close" @click="dialogFormVisible=false" src="../../assets/close.png">
+			  <div class="rthjs">
+				  <div class="ffhs">{{form.type==='wechat'?'微信':'支付宝'}}支付</div>
+				  <div class="ugtgw">
+					  <div class="iuyyy">
+						  <img class="qr" src="../../assets/qr.png"/>
+						  <div class="ergh">
+							  <img src="../../assets/saomiao.png"/>
+							  <div class="rghjs">
+								  <p>请用{{form.type==='wechat'?'微信':'支付宝'}}扫一扫</p>
+								  <p>扫描二维码支付</p>
+							  </div>
+						  </div>
+					  </div>
+					  <div class="hhuu">
+						 <p>充值金额: 充1000元送100元</p> 
+						 <p>订单编号: 202209191232210000001</p>
+						 <p>实付金额: <span>1000.00元</span></p>
+						 <p class="vgyuik">请在<span>00:58:23</span>内完成支付</p>
+					  </div>
+				  </div>
+			  </div>
+		  </div>
+	  </div>
     </div>
 </template>
 <script>
-import foot from '../../components/foot'
+// import foot from '../../components/foot'
 export default {
   name: 'charge',
-  components:{
-    foot
-  },
+  // components:{
+  //   foot
+  // },
   data(){
     return{
-       limit:'',
-       list:[],
-       company_name:'',
-       description:'',
-       partener:'',
-       logoimg:'',
-       keyword:''
+		form: {
+			number: '',
+			type: 0,
+			money: ''
+		},
+		dialogFormVisible: false,
+		checked: false,
+		resHtml: '',
+		state: 0
     }
   },
   methods:{
-    caseLoad:function(){
-      this.$axios.get('/api/cases/list?page=1&limit='+this.limit)
-      .then((res) => {
-        this.list = res.data.list
-      })
-    },
-    companyload:function(){
-      this.$axios.get('/api/about/list')
-      .then((res) => {
-        var i = 4
-        this.company_name = res.data.list[i].company_name
-        this.keyword = res.data.list[i].keyword
-        this.description = res.data.list[i].description
-        this.$store.commit("Company",res.data.list[i])
-        this.partener =res.data.list[i].company_imgsurlarr
-        this.logoimg =res.data.list[i].logo_url
-      })
-    }
+    changenumber () {
+		console.log(this.form.number)
+	},
+	repay () {
+		let user = this.$cookies.getJSON('user')
+		if (user && user.token) {
+			if (!this.form.number && !this.form.money) {
+				this.$message.error('请选择充值金额');
+				return
+			}
+			if (this.form.money<0) {
+				this.$message.error('请输入正确金额');
+				return
+			}
+			if (!this.form.type) {
+				this.$message.error('请选择充值方式');
+				return
+			}
+			if (!this.checked) {
+				this.$message.error('请阅读并勾选下方协议');
+				return
+			}
+			// this.dialogFormVisible = true
+			this.submitMoney()
+		} else {
+		  this.$store.commit('setShowLogin',1)
+		}
+		
+	},
+	submitMoney() {
+		let params = {
+			  userId: this.$cookies.getJSON('user').userId,
+			  orderId: '',
+			  payType: this.form.type,
+			  chargeType: 1,
+			  amount: this.form.number,
+			  giveAmount: 0
+		  }
+		  // this.form.number
+		this.$axios.post('http://192.168.0.99:8025/pay/amount/charge',params)
+		  .then((res) =>{
+			  console.log(res)
+			  if (res.state===200) {
+				
+			  } else {
+				this.$message.error(res.message);
+			  }
+			  this.resHtml = res.data
+			  const newWindow = window.open('', '_blank');  
+			  newWindow.document.write(res.data);
+			  newWindow.focus();
+			  console.log(this.resHtml)
+		  })
+		  .catch(err=>{
+			  this.$message.error(err);
+		  })
+
+	},
+	getState() {
+		if (!this.$cookies.getJSON('user').userId) return
+		let params = {
+			  userId: this.$cookies.getJSON('user').userId
+		  }
+		this.$axios.get('http://192.168.0.99:8024/user/org/cert/state',params)
+		  .then((res) =>{
+			  console.log(res)
+			  if (res.state===200) {
+				
+			  } else {
+				this.$message.error(res.message);
+			  }
+			  this.state = res.data
+		  })
+		  .catch(err=>{
+			  this.$message.error(err);
+		  })
+	}
   },
   mounted(){
-    this.caseLoad();
-    this.companyload();
+	  this.getState()
   }
 }
 </script>
 <style lang="less" scoped>
-  .el-main{
-    padding:0px;
+  .charge-box {
+	  background-color: #F3F5FA;
+	  padding-bottom: 80px;
+	  .dwdwd {
+		  width: 1200px;
+		  margin: 0 auto;
+		  padding: 20px;
+		  .dwdwd-one {
+			  padding: 20px 20px 24px;
+			  background-color: #fff;
+			  .iuyttr {
+				  display: flex;
+				  align-items: center;
+				  background: #FFF7E9;
+				  padding: 10px 0 10px 16px;
+				  p {
+					  margin-left: 4px;
+					  margin-right: 6px;
+				  }
+				  span {
+					  display: block;
+					  width: 14px;
+					  height: 14px;
+					  line-height: 14px;
+					  border-radius: 100%;
+					  background: #FFAA16;
+					  font-size: 10px;
+					  text-align: center;
+					  color: #fff;
+				  }
+				  a {
+					  color: #1C66E5;
+				  }
+			  }
+		  
+				.tgde {
+					display: flex;
+					margin-top: 24px;
+					.rtghn {
+						width: 70px;
+						font-size: 14px;
+						color: #666;
+					}
+					.radios {
+					  width: 1090px;
+					  ul {
+						display: flex;
+						flex-wrap: wrap;
+						li {
+						  margin-left: 14px;
+						  &:first-child {
+							  margin-left: 0;
+						  }
+						  input {
+							display: none;
+						  }
+						  label {
+							display: block;
+							width: 170px;
+							height: 66px;
+							padding: 8px 12px;
+							box-sizing: border-box;
+							border-radius: 4px;
+							position: relative;
+							font-size: 14px;
+							border: 2px solid #E0E0E0;
+							h6 {
+								font-size: 16px;
+								color: #333333;
+								font-weight: 600;
+								padding-bottom: 4px;
+							}
+							p {
+								font-size: 14px;
+								color: #999999;
+								span {
+									color: #FF4340;
+								}
+							}
+							.rtgh {
+								display: inline-block;
+								position: absolute;
+								right: -2px;
+								top: -2px;
+								padding: 2px;
+								font-size: 12px;
+								color: #FFFFFF;
+								background-color: #FF4340;
+								min-width: 32px;
+								border-bottom-left-radius: 4px;
+								border-top-right-radius: 4px;
+								text-align: center;
+							}
+							.oiuy {
+								position: absolute;
+								right: 0;
+								bottom: 0;
+								width: 18px;
+								display: none;
+							}
+						  }
+						  input:checked+label {
+							background: #F2F7FF;
+							border: 2px solid #1C66E5;
+							.oiuy {
+								display: block;
+							}
+						  }
+						}
+					  }
+					}
+				}
+				.rghn {
+					padding-left: 70px;
+					font-size: 14px;
+					margin-top: 16px;
+					input {
+						width: 169px;
+						height: 36px;
+						padding-left: 12px;
+						box-sizing: border-box;
+						border: 1px solid #E0E0E0;
+					}
+					input::-webkit-outer-spin-button,
+					input::-webkit-inner-spin-button {
+					    -webkit-appearance: none;
+					}
+					input[type="number"]{
+					    -moz-appearance: textfield;
+					}
+					span {
+						padding-left: 6px;
+					}
+				}
+				.deew {
+					display: flex;
+					align-items: center;
+					font-size: 14px;
+					color: #666666;
+					padding: 16px 0;
+					p {
+						width: 70px;
+					}
+					span {
+						color: #333333;
+					}
+				}
+				.ouytg {
+					.radios {
+						ul {
+							li {
+								label {
+									line-height: 66px;
+									text-align: center;
+									.wdre {
+										width: 100px;
+									}
+									.vddd {
+										position: relative;
+										top: 4px;
+									}
+								}
+							}
+						}
+					}
+				}
+				.efdd {
+					padding: 20px 0 40px 70px;
+					.el-checkbox {
+						color: #999999;
+						font-weight: normal;
+					}
+					a {
+						color: #409EFF;
+					}
+				}
+				.gdewd {
+					padding-left: 70px;
+					.el-button--primary {
+						width: 148px;
+						height: 46px;
+						font-weight: normal;
+					    color: #FFF;
+					    background-color: #1C66E5;
+					    border-color: #1C66E5;
+						cursor: pointer;
+					}
+					&:active {
+						opacity: 0.8;
+					}
+				}
+		  }
+		  
+		  .dwdwd-two {
+			  padding: 20px 40px 32px 0;
+			  background-color: #fff;
+			  margin-top: 20px;
+			  h4 {
+				 font-size: 16px;
+				 color: #333333;
+				 padding-left: 20px;
+				 position: relative;
+				 span {
+					 display: block;
+					 width: 64px;
+					 height: 5px;
+					 border-radius: 3px;
+					 background: #679FFF;
+					 position: absolute;
+					 bottom: 2px;
+					 left: 20px;
+					 opacity: 0.6;
+				 }
+			  }
+			  img {
+				  width: 100%;
+			  }
+		  }
+	  }
+	  
   }
-  .banner-box{
-    width:100%;
-    height: 800px;
-    background-color:#F4F4F4;
-    background-image:url('../../img/bg1.png');
-    background-position: center;
-    background-position-y:0px;
-    background-repeat:no-repeat;
-  }
-  .title{
-    margin-top: 100px;
-  }
-  .title_1{
-    color: #fff;
-    font-size:16px;
-    margin-top: 10px;
-    text-shadow:2px 2px 6px rgba(0,0,0,.3);
-  }
-  .advantage{
-    height: auto;
-    background-image:url('../../img/bg3.png');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-position-y: 0px;
-    .bg{
-      margin-top: 200px;
-    }
-    .advantage_box{
-      background-color: #fff;
-      width:100%;
-      height:360px;
-      margin: 60px auto 110px;
-      .box1{
-        width: 265px;
-        height:360px;
-        margin-right: 40px;
-        float: left;
-        background-image: url(../../img/bg5.png);
-        background-repeat: no-repeat;
-        text-align: left;
-        font-size: 16px;
-        .city{
-          margin:50px 0px 0px 20px;
-        }
-        .company{
-          margin:10px 0px 0px 20px;
-          font-weight: 700;
-        }
-      }
-      .box2{
-        width:780px;
-        float: left;
-        .tab_advantage{
-         .tab_advantage_box{
-           text-align: left;
-           .title{
-             margin-top: 10px;
-             margin-bottom: 10px;
-             font-size: 24px;
-             font-weight: 700;
-           }
-           .txt{
-             font-size:16px;
-             font-weight: 700;
-             letter-spacing:3px;
-           }
-         }
-        }
-      }
-    }
-  }
-  .case{
-    height: 880px;
-    background-image: url(../../img/bg7.png);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-position-y: 0px;
-    display: flex;
-    flex-direction: column;
-    background-attachment: fixed;
-  }
-  .service{
-    height: 745px;
-    display: flex;
-    flex-direction: column;
-    .h1Title{
-      margin-top: 80px;
-    }
-    .list{
-      color:#333;
-      margin-top: 75px;
-      li{
-        width:240px;
-        position: relative;
-        float: left;
-        .img_jt{
-          position: absolute;
-          top: 40px;
-          right: -30px;
-        }
-        &.animated:before{
-            height:70px;
-        }
-        &:nth-child(1)::before{background-color: #6FD6FF;}
-        &:nth-child(1)::after{background-color: #6FD6FF;}
-        &:nth-child(2)::before{background-color: #FEB785;}
-        &:nth-child(2)::after{background-color: #FEB785;}
-        &:nth-child(3)::before{background-color: #91B7FF;}
-        &:nth-child(3)::after{background-color: #91B7FF;}
-        &:nth-child(4)::before{background-color: #FE6891;}
-        &:nth-child(4)::after{background-color: #FE6891;}
-        &:nth-child(5)::before{background-color: #BCB5FC;}
-        &:nth-child(5)::after{background-color: #BCB5FC;}
-         &:before{
-            content: '';
-            width:2px;
-            height:70px;
-            position: absolute;
-            left:120px;
-            top: 88px;
-          }
-        &:after{
-            content: '';
-            width:10px;
-            height:10px;
-            border-radius:100%;
-            position: absolute;
-            left:116px;
-            top: 155px;
-        }
-        .img{
-          position: relative;
-        }
-        .title{
-          margin-top: 115px;
-          font-size: 24px;
-          font-weight: 700;
-        }
-        .txt{
-          margin-top: 30px;
-          line-height: 28px;
-          font-size: 16px;
-          color: #666;
-        }
-      }
-    }
-  }
-  .company_box{
-    height: 645px;
-    background-image: url(../../img/bg8.png);
-    background-position: center;
-    background-position-y: 0px;
-    background-repeat: no-repeat;
-    .icon1{
-      float: left;
-      margin-left: 355px;
-      margin-top: 230px;
-      width: 200px;
-      height: 200px;
-    }
-    .company_txt{
-      width: 540px;
-      height:340px;
-      margin-top: 157px;
-      background-color: #fff;
-      border-radius: 50px;
-      float: right;
-      text-align: left;
-      margin-right: -33px;
-      h2{
-        font-size: 24px;
-        font-weight: 700;
-        padding:40px 40px 15px 40px;
-      }
-      span{
-        font-size:16px;
-        padding-left: 40px;
-        color:#666;
-      }
-      p{
-        font-size: 16px;
-        padding-left: 40px;
-        padding-top: 20px;
-        width:390px;
-        line-height: 30px;
-        font-weight: 700;
-      }
-      .more{
-        width:110px;
-        height: 35px;
-        line-height: 35px;
-        background-color: #187AFF;
-        text-align: center;
-        margin-left: 40px;
-        margin-top: 30px;
-        a{
-          display: block;
-          color:#fff;
-          font-size: 16px;
-        }
-      }
-    }
-  }
-  .partner{
-    .h1Title{
-      margin-top: 100px;
-      margin-bottom: 60px;
-    }
-    .list{
-      display: flex;
-      flex-wrap: wrap;
-      margin-bottom: 100px;
-      margin-left: -20px;
-      li{
-        width:calc(20% - 20px);
-        margin-left: 20px;
-        margin-bottom: 20px;
-        .img_box{
-          width:100%;
-          height:100px;
-          overflow: hidden;
-          position: relative;
-          img{
-           width:100%;
-           position: absolute;
-           left:0px;
-           top:0px;;
-          }
-        }
-      }
-    }
-  }
-</style>
-<style lang="">
-  .case .h1Title{
-    color: #fff;
-    margin-top: 80px;
-  }
-   #tab-0{
-    background-color: #228bf9;
-    position: relative;
-  }
-  #tab-0:after{
-    content: '';
-    width:100%;
-    height:5px;
-    background-color: #fff;
-    position: absolute;
-    bottom:0px;
-    left:0px;
-  }
-  #tab-1:after{
-    content: '';
-    width:100%;
-    height:5px;
-    background-color: #fff;
-    position: absolute;
-    bottom:0px;
-    left:0px;
-  }
-  #tab-2:after{
-    content: '';
-    width:100%;
-    height:5px;
-    background-color: #fff;
-    position: absolute;
-    bottom:0px;
-    left:0px;
-  }
-  #tab-3:after{
-    content: '';
-    width:100%;
-    height:5px;
-    background-color: #fff;
-    position: absolute;
-    bottom:0px;
-    left:0px;
-  }
-   #tab-1{
-    background-color: #88daf2;
-  }
-   #tab-2{
-    background-color: #64aefb;
-  }
-   #tab-3{
-    background-color: #88daf2;
-  }
-  .el-tabs__item:hover{
-    color:#fff;
-  }
-  .el-tabs__item.is-active{
-    color: #fff;
-  }
-  .el-tabs__item{
-    width:85px!important;
-    height:90px!important;
-    line-height: 90px!important;
-    text-align: center!important;
-    font-size: 36px!important;
-    color:#fff!important;
-  }
-  .el-tabs__nav-wrap{
-    overflow: visible!important;
-  }
-  .el-tabs__nav-scroll {
-    overflow: visible!important;
-}
-  .el-tabs__active-bar.is-left{
-    background:none!important;
-    top:25px!important;
-    right:-15px!important;
-    width:0!important;
-    height:0!important;
-    border-width:15px 0 15px 15px;
-    border-style:solid;
-    border-color:transparent transparent transparent #ed6756;
-  }
-  .el-tabs__header.is-left{
-    margin-right: 40px!important;
+  
+  .mengban {
+	  width: 100%;
+	  height: 100%;
+	  background: rgba(0, 0, 0, 0.5);
+	  position: fixed;
+	  left: 0;
+	  top: 0;
+	  .iuhgg {
+		width: 644px;
+		height: 386px;
+		box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+		border-radius: 8px;
+		background: #FFFFFF;
+		position: relative;
+		margin: 200px auto;
+		.rthjs {
+		  	height: 264px;
+			background: linear-gradient(285.85deg, #1C66E5 3.71%, #3D84FF 101.01%);
+			.ffhs {
+				font-size: 20px;
+				color: #fff;
+				text-align: center;
+				padding: 20px 0;
+			}
+			.ugtgw {
+				width: 580px;
+				margin-left: 32px;
+				background-color: #fff;
+				display: flex;
+				box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+				border-radius: 8px;
+				padding: 24px 32px;
+				box-sizing: border-box;
+				.iuyyy {
+					margin-right: 32px;
+					.qr {
+						width: 132px;
+						height: 132px;
+					}
+					.ergh {
+						display: flex;
+						align-items: center;
+						img {
+							width: 19px;
+							height: 19px;
+							margin-right: 10px;
+						}
+						.rghjs {
+							font-size: 12px;
+							letter-spacing: 3px;
+						}
+					}
+				}
+				.hhuu {
+					font-size: 14px;
+					p {
+						margin-bottom: 12px;
+						span {
+							color: #FF3B30;
+						}
+					}
+					.vgyuik {
+						margin-top: 67px;
+						span {
+							color: #1C66E5;
+						}
+					}
+				}
+			}
+		}
+		.close {
+			position: absolute;
+			width: 15px;
+			height: 15px;
+			right: 26px;
+			top: 26px;
+		}
+	  }
   }
 </style>

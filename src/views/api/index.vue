@@ -3,65 +3,76 @@
 	  <div class="item-one-inner">
 		  <div class="item-one">
 			  <div class="item-dwdew">
-				  <ul>
-					  <li>
-						  <div>
-							  <img class="one" src="../../assets/leftAside/111_.png"/>
-							  <span>工商信息</span>
-							  <span class="wdewd ddew">|</span>
-							  <span class="wdewd">企业基本信息</span>
-						  </div>
-						  <img  class="two"  src="../../assets/jiantou/right_small.png"/>
-					  </li>
-					  <li>
-						  <div>
-							  <img class="one" src="../../assets/leftAside/666_.png"/>
-							  <span>经营信息</span>
-							  <span class="wdewd ddew">|</span>
-							  <span  class="wdewd">招投标</span>
-						  </div>
-						  <img  class="two"  src="../../assets/jiantou/right_small.png"/>
-					 </li>
-					 <li>
-						  <div>
-							  <img class="one" src="../../assets/leftAside/555_.png"/>
-							  <span>经营风险</span>
-							  <span class="wdewd ddew">|</span>
-							  <span  class="wdewd">经营异常</span>
-						  </div>
-						  <img  class="two"  src="../../assets/jiantou/right_small.png"/>
-					 </li>
-					 <li>
-						  <div>
-							  <img class="one" src="../../assets/leftAside/iii_.png"/>
-							  <span>知识产权</span>
-							  <span class="wdewd ddew">|</span>
-							  <span  class="wdewd">司法风险</span>
-						  </div>
-						  <img  class="two"  src="../../assets/jiantou/right_small.png"/>
-					 </li>
-					 <li>
-						  <div>
-							  <img class="one" src="../../assets/leftAside/ddd_.png"/>
-							  <span>司法风险</span>
-							  <span class="wdewd ddew">|</span>
-							  <span  class="wdewd">法律诉讼</span>
-						  </div>
-						  <img  class="two"  src="../../assets/jiantou/right_small.png"/>
-					 </li>
-					 <li>
-						  <div>
-							  <img class="one" src="../../assets/leftAside/jjj_.png"/>
-							  <span>建筑资质</span>
-							  <span class="wdewd ddew">|</span>
-							  <span  class="wdewd">不良行为</span>
-						  </div>
-						  <img  class="two"  src="../../assets/jiantou/right_small.png"/>
-					 </li>
-				  </ul>
-				  <div class="dewee">
-					  <router-link to="moreApi">查看更多</router-link>
+				  <div class="rtghn" @mouseleave="leaveHover">
+					  <ul class="ulwdw">
+						  <li v-for="(item,index) in result" @mouseover="goHover(item.dimId)">
+							  <div>
+								  <img class="one" :src="item.dimPicture"/>
+								  <span>{{item.dimName}}</span>
+								  <span class="wdewd ddew">|</span>
+								  <span class="wdewd" @click="goDetail(item.dimId,item.intfList[0].id)">{{item.intfList[0].name.slice(0,4)}}</span>
+							  </div>
+							  <img  class="two"  src="../../assets/jiantou/right_small.png"/>
+						  </li>
+						  <!-- <li @mouseover="goHover(2)">
+							  <div>
+								  <img class="one" src="../../assets/leftAside/666_.png"/>
+								  <span>经营信息</span>
+								  <span class="wdewd ddew">|</span>
+								  <span  class="wdewd" @click="goDetail(987)">招投标</span>
+							  </div>
+							  <img  class="two"  src="../../assets/jiantou/right_small.png"/>
+						 </li>
+						 <li  @mouseover="goHover(3)">
+							  <div>
+								  <img class="one" src="../../assets/leftAside/555_.png"/>
+								  <span>经营风险</span>
+								  <span class="wdewd ddew">|</span>
+								  <span  class="wdewd" @click="goDetail(321)">经营异常</span>
+							  </div>
+							  <img  class="two"  src="../../assets/jiantou/right_small.png"/>
+						 </li>
+						 <li @mouseover="goHover(4)">
+							  <div>
+								  <img class="one" src="../../assets/leftAside/iii_.png"/>
+								  <span>知识产权</span>
+								  <span class="wdewd ddew">|</span>
+								  <span  class="wdewd" @click="goDetail(333)">司法风险</span>
+							  </div>
+							  <img  class="two"  src="../../assets/jiantou/right_small.png"/>
+						 </li>
+						 <li @mouseover="goHover(5)">
+							  <div>
+								  <img class="one" src="../../assets/leftAside/ddd_.png"/>
+								  <span>司法风险</span>
+								  <span class="wdewd ddew">|</span>
+								  <span  class="wdewd" @click="goDetail(98)">法律诉讼</span>
+							  </div>
+							  <img  class="two"  src="../../assets/jiantou/right_small.png"/>
+						 </li>
+						 <li @mouseover="goHover(6)">
+							  <div>
+								  <img class="one" src="../../assets/leftAside/jjj_.png"/>
+								  <span>建筑资质</span>
+								  <span class="wdewd ddew">|</span>
+								  <span  class="wdewd">不良行为</span>
+							  </div>
+							  <img  class="two"  src="../../assets/jiantou/right_small.png"/>
+						 </li> -->
+					  </ul>
+					  <div class="efgbn" v-show="hoverShow>0">
+						  <ul>
+							  <li v-for="item in array1" @click="goDetail(item.dimId,item.id)">
+								  <h6>{{item.name}}</h6>
+								  <p>{{item.descr}}</p>
+							  </li>
+						  </ul>
+					  </div>
 				  </div>
+				  <div class="dewee">
+					  <router-link to="allApi">查看更多</router-link>
+				  </div>
+				  
 			  </div>
 			  <div class="item-dwde">
 				  <h1>企业级产品</h1>
@@ -132,7 +143,7 @@
 			  </li>
 			  <li class="poiu">
 				  <img class="pos-icon" src="../../assets/index&api/eee3.png"/>
-				  <span class="hgyu">03 it net</span>
+				  <span class="hgyu">03 IT NET</span>
 				  <h5>IT互联网</h5>
 				  <p><img src="../../assets/index&api/duigou.png"/> <span>数据分析</span></p>
 				  <p><img src="../../assets/index&api/duigou.png"/> <span>自主研发</span></p>
@@ -140,7 +151,7 @@
 			  </li>
 			  <li class="poiu spec">
 				  <img class="pos-icon" src="../../assets/index&api/eee4.png"/>
-				  <span class="hgyu">04 online</span>
+				  <span class="hgyu">04 ONLINE</span>
 				  <h5>电商、物流</h5>
 				  <p><img src="../../assets/index&api/duigou.png"/> <span>供应商入库信息核验</span></p>
 				  <p><img src="../../assets/index&api/duigou.png"/> <span>核实进出口信用评级</span></p>
@@ -149,7 +160,7 @@
 			  </li>
 			  <li class="poiu">
 				  <img class="pos-icon" src="../../assets/index&api/eee5.png"/>
-				  <span class="hgyu">05 lawyer</span>
+				  <span class="hgyu">05 LAWYER</span>
 				  <h5>律师、会计事务所</h5>
 				  <p><img src="../../assets/index&api/duigou.png"/> <span>拓展案源</span></p>
 				  <p><img src="../../assets/index&api/duigou.png"/> <span>确认企业过往涉诉情况</span></p>
@@ -158,7 +169,7 @@
 			  </li>
 			  <li>
 				  <img class="pos-icon" src="../../assets/index&api/eee6.png"/>
-				  <span class="hgyu">06 qualifications</span>
+				  <span class="hgyu">06 QUALIFICATIONS</span>
 				  <h5>资质许可</h5>
 				  <p><img src="../../assets/index&api/duigou.png"/> <span>行政许可</span></p>
 				  <p><img src="../../assets/index&api/duigou.png"/> <span>建筑资质</span></p>
@@ -171,6 +182,9 @@
     </div>
 </template>
 <script>
+	
+let timer = null
+let timer2 = null
 import foot from '../../components/foot'
 export default {
   name: 'api',
@@ -179,12 +193,60 @@ export default {
   },
   data(){
     return{
+	  hoverShow: 0,
+	  result: [],
+	  itemList: {}
+	  // array1: [
+		 //  {
+			//   title: '企业基本信息',
+			//   content: '获取包括：统一社会信用代码、注册资本、法定代表人、经营范围、经营状态等信息',
+			//   id: 567
+		 //  }
+	  // ]
     }
   },
+  computed: {
+	  array1:function () {
+		  console.log(this.itemList[this.hoverShow])
+		  return this.itemList[this.hoverShow]
+	  }
+  },
   methods:{
-    
+    goHover(id) {
+	  this.hoverShow = id
+	  console.log(this.hoverShow)
+	  console.log(typeof this.hoverShow)
+	},
+	leaveHover() {
+	  this.hoverShow = 0
+	},
+	goDetail(dimId,id) {
+		this.$router.push(`/apiDetail?dimId=${dimId}&id=${id}`)
+	},
+	resolveData() {
+		this.result.forEach(item=>{
+			this.itemList[item.dimId] = item.intfList
+		})
+	}
   },
   mounted(){
+	  let params = {
+		  dimIntfNum: 8
+	  }
+	  this.$axios.get('http://192.168.0.99:8027/portal/api/dim/interface/home',params)
+	  .then((res) =>{
+		  console.log(res)
+		  if (res.state===200) {
+			
+		  } else {
+			this.$message.error(res.message);
+		  }
+		  this.result = res.data.slice(0,6)
+		  this.resolveData()
+	  })
+	  .catch(err=>{
+		  this.$message.error(err);
+	  })
   }
 }
 </script>
@@ -202,13 +264,21 @@ export default {
   		  display: flex;
   		  justify-content: space-between;
   		  .item-dwdew {
-  			  width: 254px;
-  			  height: 318px;
-  			  padding: 20px;
-			  background-color: #fff;
-  			  box-sizing: border-box;
+			  width: 254px;
+			  height: 318px;
+			  padding-bottom: 20px;
+			  box-sizing: border-box;
 			  border-radius: 4px;
-			  ul {
+			  background-color: #fff;
+			  .rtghn{
+				 padding: 20px 20px 0;
+				 box-sizing: border-box;
+				 border-radius: 4px;
+				 position: relative; 
+				 // height: 254px;
+				 // overflow: hidden;
+			  }
+			  .ulwdw {
 				  li {
 					  font-size: 14px;
 					  display: flex;
@@ -220,6 +290,9 @@ export default {
 						 height: 14px;
 						 margin-right: 9px;
 					  }
+					  span {
+						  cursor: pointer;
+					  }
 					  .two {
 						 width: 9px;
 					  }
@@ -227,14 +300,18 @@ export default {
 						  color: #999;
 						  margin-left: 8px;
 					  }
+					  .wdewd:hover {
+						  color: #1C66E5;
+					  }
 					  .ddew {
 						  color: #E0E0E0;
 					  }
 				  }
 			  }
 			  .dewee {
-				  width: 100%;
+				  width: 214px;
 				  height: 36px;
+				  margin: 0 auto;
 				  background: #F3F5FA;
 				  border-radius: 2px;
 				  text-align: center;
@@ -242,6 +319,52 @@ export default {
 				  a {
 					  color: #666666;
 					  font-weight: 400;
+				  }
+			  }
+			  .efgbn {
+				  width: 946px;
+				  height: 318px;
+				  padding: 28px 0 28px 20px;
+				  box-sizing: border-box;
+				  position: absolute;
+				  top:0;
+				  right: -946px;
+				  background-color: #fff;
+				  box-shadow: -4px 4px 12px rgba(0, 0, 0, 0.04);
+				  border-radius: 4px;
+				  ul {
+					  display: flex;
+					  flex-wrap: wrap;
+					  li {
+						  width: 284px;
+						  height: 99px;
+						  padding-right: 27px;
+						  box-sizing: border-box;
+						  h6 {
+							  color: #333333;
+							  font-size: 14px;
+							  padding-bottom: 8px;
+							  cursor: pointer;
+						  }
+						  p {
+							  font-size: 12px;
+							  color: #999999;
+							  cursor: pointer;
+							  overflow:hidden;
+							  text-overflow:ellipsis;
+							  display:-webkit-box;
+							  -webkit-box-orient:vertical;
+							  -webkit-line-clamp:2;
+						  }
+					  }
+					  li:hover {
+						  h6 {
+							  color: #1C66E5;
+						  }
+						  p {
+							  color: #1C66E5;
+						  }
+					  }
 				  }
 			  }
 		  }
