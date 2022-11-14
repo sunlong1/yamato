@@ -71,7 +71,7 @@
 						  label="支付方式"
 						  width="100">
 						  <template slot-scope="scope">
-							{{ scope.row.repayType==0?'微信':'支付宝' }}
+							{{ scope.row.repayType==1?'微信':'支付宝' }}
 						  </template>
 						</el-table-column>
 						<el-table-column
