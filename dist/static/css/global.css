@@ -1,0 +1,110 @@
+/* 公共css */
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, 
+strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, 
+tfoot, thead, tr, th, td ,textarea,input { margin:0; padding:0;  }
+address,cite,dfn,em,var, i {font-style:normal;}
+body {font-size: 16px; line-height: 1.5; font-family: 'PingFang SC';color: #333; }
+table { border-collapse:collapse; border-spacing:0; }
+h1, h2, h3, h4, h5, h6, th { font-weight: normal; }
+button,input,select,textarea{font-size:100%;}
+fieldset,img{border:0;}
+a,
+img {
+    -webkit-touch-callout: none
+}
+a,
+a:active,
+a:focus,
+a:hover,
+a:visited {text-decoration: none}
+input[type=password],
+input[type=text],
+textarea {
+    resize: none;
+    outline: 0;
+    -webkit-appearance: none;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    background: #fff
+}
+ul, ol { list-style: none; }
+:focus{ outline:none;}
+.clearfix{ clear: both; content: ""; display: block; overflow: hidden }
+.clear{clear: both;}
+.fl{ float: left; }
+.fr{float: right;}
+.con{
+    width:1200px;
+    margin: 0px auto;
+}
+/* allApi */
+.el-carousel--horizontal {
+	padding-bottom: 20px;
+}
+.el-carousel__indicator button {
+	background-color: #1C66E5;
+	opacity: 0.6;
+}
+.el-carousel__indicator.is-active button {
+	opacity: 1;
+}
+/* table */
+.el-table thead{
+	border-bottom: 1px solid #ECEEF1;
+	color: #1F2329;
+}
+.el-table th.el-table__cell {
+	background: #F8F9FA;
+}
+.el-table__empty-block {
+	display: none;
+}
+/* .el-dialog {
+	z-index: 2050;
+} */
+/* 单独页面 */
+.pkjh .el-dialog__header {
+	border-bottom: 1px solid #F3F3F3;
+}
+.pkjh .el-dialog__header .el-dialog__title {
+	font-weight: normal;
+	font-size: 16px;
+	color: #333333;
+}
+/* 搜索结果为空 */
+.wdwds {
+	width: 956px;
+	min-height: 500px;
+	text-align: center;
+	font-size: 14px;
+	color: #666666;
+}
+.wdwds img {
+	width: 188px;
+	margin-top: 70px;
+}
+	
+.iusjjs .el-form-item {
+	margin-bottom: 16px;
+}
+.rsaas .el-form-item {
+	margin-bottom: 2px;
+}
+.bjjswe .el-dialog__header {
+	border-bottom: 1px solid #F3F3F3;
+}
+.bjjswe .el-dialog__body {
+	padding-top: 20px;
+}
+.el-button--primary {
+	background-color: #1C66E5;
+	border-color: #1C66E5;
+}
+.el-pagination.is-background .el-pager li:not(.disabled).active{
+	background-color: #1C66E5;
+}
+.search-box .el-input-group__append,.search-box .el-input-group__prepend {
+	background-color: #1C66E5;
+	border: 1px solid #1C66E5;
+}
