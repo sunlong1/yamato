@@ -267,11 +267,11 @@ export default {
 	  resolveData(arr) {
 		  arr.forEach(item => {
 			  let obj = {}
-			  obj['id'] = item.dimId + '-666'
+			  obj['id'] = item.dimId
 			  obj['label'] = item.dimName
 			  let child = []
 			  item.intfList.forEach(demo => {
-				  child.push({id: demo.id + '-888',label: demo.name,checked: demo.applied===1})
+				  child.push({id: demo.id,label: demo.name,checked: demo.applied===1})
 			  })
 			  obj['children'] = child
 			  this.treeData.push(obj)
