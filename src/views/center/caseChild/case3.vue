@@ -212,10 +212,14 @@ export default {
 			  .then((res) =>{
 				  console.log(res)
 				  if (res.state===200) {
-					
+					this.$refs.tree.setCheckedKeys([]);
+					this.$refs.tree.setCheckedNodes([])
+					this.$message.success('申请成功');
+					this.getSelects()
 				  } else {
 					this.$message.error(res.message);
 				  }
+				  
 			  })
 			  .catch(err=>{
 				  this.$message.error(err);
@@ -271,7 +275,7 @@ export default {
 			  obj['label'] = item.dimName
 			  let child = []
 			  item.intfList.forEach(demo => {
-				  child.push({id: demo.id,label: demo.name,checked: demo.applied===1})
+				  child.push({id: demo.id,label: demo.name,disabled: demo.applied===1})
 			  })
 			  obj['children'] = child
 			  this.treeData.push(obj)
