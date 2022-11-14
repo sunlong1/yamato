@@ -80,13 +80,13 @@
 						<div class="edsff">请求信息</div>
 						<div class="efgbs">
 							<p>请求方式：{{detailObj.reqMethod}}</p>
-							<p>请求方式：{{detailObj.reqMethod}}</p>
-							<p>请求方式：{{detailObj.reqMethod}}</p>
-							<p>请求方式：{{detailObj.reqMethod}}</p>
+							<p>请求地址：<br/>{{detailObj.url}}</p>
+							<p>请求参数：<br/>{{detailObj.reqParam || '---'}}</p>
+							<p>请求token：<br/>{{detailObj.reqMethod}}</p>
 						</div>
 						<div class="dfghn">
 							<p>返回内容</p>
-							<span>复制</span>
+							<span @click="copy">复制</span>
 						</div>
 						<div class="cdssa"></div>
 					</div>
@@ -169,25 +169,24 @@ export default {
 					date2: '账号失效',  
 				}
 			],
-			editFormRules: {
-				// informChannel: [
-				// 	{ required: true, message: '不能为空', trigger: 'blur' }
-				// ],
-				// planName: [
-				// 	{ required: true, message: '不能为空', trigger: 'blur' }
-				// ],
-				// editForm: [
-				// 	{ required: true, message: '不能为空', trigger: 'blur' }
-				// ]
-			},
+			// editFormRules: {
+			// 	// informChannel: [
+			// 	// 	{ required: true, message: '不能为空', trigger: 'blur' }
+			// 	// ],
+			// 	// planName: [
+			// 	// 	{ required: true, message: '不能为空', trigger: 'blur' }
+			// 	// ],
+			// 	// editForm: [
+			// 	// 	{ required: true, message: '不能为空', trigger: 'blur' }
+			// 	// ]
+			// },
 			editLoading: false
 		}
     },
     methods:{
-		// listChange(index) {
-		// 	console.log(index)
-		// 	this.shows = index
-		// },
+		copy() {
+			
+		},
 		handleClick(tab, event) {
 			console.log(tab, event);
 		},
@@ -215,6 +214,14 @@ export default {
 				}
 				if (!this.editForm.keyword) {
 					this.$message.error('请输入关键字');
+					return
+				}
+				if (!this.editForm.pageNum) {
+					this.$message.error('请输入页码');
+					return
+				}
+				if (!this.editForm.pageSize) {
+					this.$message.error('请输入每页条数');
 					return
 				}
 			} else {
@@ -446,6 +453,10 @@ export default {
 							border-radius: 2px;
 							color: #fff;
 							margin: 24px auto;
+							cursor: pointer;
+						}
+						.oiud:active {
+							opacity: 0.6;
 						}
 					}
 					.oiuyd {
@@ -463,7 +474,7 @@ export default {
 							margin-top: 12px;
 							padding: 16px;
 							box-sizing: border-box;
-							p {line-height: 24px;}
+							p {line-height: 28px;}
 						}
 						.dfghn {
 							margin-top: 12px;
@@ -472,6 +483,7 @@ export default {
 							align-items: center;
 							p {
 								font-weight: 500;
+								cursor: pointer;
 							}
 							span {
 								width: 67px;
@@ -481,6 +493,10 @@ export default {
 								display: block;
 								border: 1px solid #E0E0E0;
 								border-radius: 4px;
+								cursor: pointer;
+							}
+							span:active {
+								opacity: 0.8;
 							}
 						}
 						.cdssa {
