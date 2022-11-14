@@ -32,7 +32,7 @@
         </ul>
       </div>
 	  
-	  <el-dialog :visible.sync="$store.state.showLogin===1" width="360px">
+	  <el-dialog :visible.sync="$store.state.showLogin===1" @close="goClose" width="360px">
 		<div class="vft6" v-loading="loading">
 			<!-- <img class="logo" src="../assets/logo.png"/> -->
 			<div class="oiuyg" v-if="type==='password' || type==='code'">
@@ -195,6 +195,9 @@ let timer = null
 		}
 	},
     methods: {
+	  goClose() {
+		  this.$store.commit('setShowLogin',0)
+	  },
 	  resetForm(formName) {
 		  this.$refs[formName].resetFields();
 		},

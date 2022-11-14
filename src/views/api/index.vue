@@ -5,16 +5,16 @@
 			  <div class="item-dwdew">
 				  <div class="rtghn" @mouseleave="leaveHover">
 					  <ul class="ulwdw">
-						  <li @mouseover="goHover(1)">
+						  <li v-for="(item,index) in result" @mouseover="goHover(item.dimId)">
 							  <div>
-								  <img class="one" src="../../assets/leftAside/111_.png"/>
-								  <span>工商信息</span>
+								  <img class="one" :src="item.dimPicture"/>
+								  <span>{{item.dimName}}</span>
 								  <span class="wdewd ddew">|</span>
-								  <span class="wdewd" @click="goDetail(766)">企业基本信息</span>
+								  <span class="wdewd" @click="goDetail(item.dimId,item.intfList[0].id)">{{item.intfList[0].name.slice(0,4)}}</span>
 							  </div>
 							  <img  class="two"  src="../../assets/jiantou/right_small.png"/>
 						  </li>
-						  <li @mouseover="goHover(2)">
+						  <!-- <li @mouseover="goHover(2)">
 							  <div>
 								  <img class="one" src="../../assets/leftAside/666_.png"/>
 								  <span>经营信息</span>
@@ -58,13 +58,13 @@
 								  <span  class="wdewd">不良行为</span>
 							  </div>
 							  <img  class="two"  src="../../assets/jiantou/right_small.png"/>
-						 </li>
+						 </li> -->
 					  </ul>
 					  <div class="efgbn" v-show="hoverShow>0">
 						  <ul>
-							  <li v-for="item in array1" @click="goDetail(item.id)">
-								  <h6>{{item.title}}</h6>
-								  <p>{{item.content}}</p>
+							  <li v-for="item in array1" @click="goDetail(item.dimId,item.id)">
+								  <h6>{{item.name}}</h6>
+								  <p>{{item.descr}}</p>
 							  </li>
 						  </ul>
 					  </div>
@@ -194,68 +194,59 @@ export default {
   data(){
     return{
 	  hoverShow: 0,
-	  array1: [
-		  {
-			  title: '企业基本信息',
-			  content: '获取包括：统一社会信用代码、注册资本、法定代表人、经营范围、经营状态等信息',
-			  id: 567
-		  },
-		  {
-			  title: '企业三要素验证',
-			  content: '输入企业名称、法定代表人名称、统一社会信用代码/注册号/组织机构代码，验证是否匹配',
-			  id: 37
-		  },
-		  {
-			  title: '小微企业核查',
-			  content: '通过企业唯一标识判断该企业是否为小微企',
-			  id: 567
-		  },
-		  {
-			  title: '高新企业核查',
-			  content: '通过企业唯一标识判断该企业是否为小微企',
-			  id: 567
-		  },
-		  {
-			  title: '企业联系方式查询',
-			  content: '通过企业唯一标识获取企业的联系方式，包括企业的联系电话、地址、邮件、网站',
-			  id: 32
-		  },
-		  {
-			  title: '主要人员查询',
-			  content: '通过企业唯一标识判断该企业是否为小微企',
-			  id: 567
-		  },
-		  {
-			  title: '对外投资查询',
-			  content: '通过企业唯一标识获取企业对外投资的企业列表，包括呗投资企业名称、经营范围、注册资本',
-			  id: 567
-		  },
-		  {
-			  title: '企业股东查询',
-			  content: '通过企业唯一标识获取企业的股东列表，包括股东类型、股东名称、投资占比等',
-			  id: 567
-		  },
-		  {
-			  title: '企业年报查询',
-			  content: '通过企业唯一标识获取企业年报信息，包括年份报告、电话、邮箱、员工参保情况等',
-			  id: 567
-		  }
-	  ]
+	  result: [],
+	  itemList: {}
+	  // array1: [
+		 //  {
+			//   title: '企业基本信息',
+			//   content: '获取包括：统一社会信用代码、注册资本、法定代表人、经营范围、经营状态等信息',
+			//   id: 567
+		 //  }
+	  // ]
     }
+  },
+  computed: {
+	  array1:function () {
+		  console.log(this.itemList[this.hoverShow])
+		  return this.itemList[this.hoverShow]
+	  }
   },
   methods:{
     goHover(id) {
 	  this.hoverShow = id
+	  console.log(this.hoverShow)
+	  console.log(typeof this.hoverShow)
 	},
 	leaveHover() {
 	  this.hoverShow = 0
 	},
-	goDetail(id) {
-		this.$router.push(`/apiDetail?id=${id}`)
+	goDetail(dimId,id) {
+		this.$router.push(`/apiDetail?dimId=${dimId}&id=${id}`)
+	},
+	resolveData() {
+		this.result.forEach(item=>{
+			this.itemList[item.dimId] = item.intfList
+		})
 	}
   },
   mounted(){
-	  
+	  let params = {
+		  dimIntfNum: 8
+	  }
+	  this.$axios.get('http://192.168.0.99:8027/portal/api/dim/interface/home',params)
+	  .then((res) =>{
+		  console.log(res)
+		  if (res.state===200) {
+			
+		  } else {
+			this.$message.error(res.message);
+		  }
+		  this.result = res.data.slice(0,6)
+		  this.resolveData()
+	  })
+	  .catch(err=>{
+		  this.$message.error(err);
+	  })
   }
 }
 </script>
@@ -280,12 +271,12 @@ export default {
 			  border-radius: 4px;
 			  background-color: #fff;
 			  .rtghn{
-				 
 				 padding: 20px 20px 0;
-				 
 				 box-sizing: border-box;
 				 border-radius: 4px;
 				 position: relative; 
+				 // height: 254px;
+				 // overflow: hidden;
 			  }
 			  .ulwdw {
 				  li {
@@ -359,6 +350,11 @@ export default {
 							  font-size: 12px;
 							  color: #999999;
 							  cursor: pointer;
+							  overflow:hidden;
+							  text-overflow:ellipsis;
+							  display:-webkit-box;
+							  -webkit-box-orient:vertical;
+							  -webkit-line-clamp:2;
 						  }
 					  }
 					  li:hover {

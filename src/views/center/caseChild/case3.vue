@@ -78,7 +78,7 @@
 					    node-key="id"
 						ref="tree"
 						@check-change="getCheckedKeys"
-					    :default-expanded-keys="[2]">
+					    :default-expanded-keys="[1]">
 					  </el-tree>
 					  <!-- <div class="buttons">
 					    <el-button @click="getCheckedNodes">通过 node 获取</el-button>
@@ -121,38 +121,9 @@ export default {
 			applyApi: false,
 			tableData: [],
 			orderId: '',
-			treeData: [{
-			  id: 1,
-			  label: '一级 2',
-			  children: [{
-				id: 11,
-				label: '二级 1-1'
-			  }, {
-				id: 12,
-				label: '二级 1-2',
-				disabled: true
-			  },{
-				id: 13,
-				label: '三级 1-3',
-				disabled: true
-			  }]
-			},{
-			  id: 2,
-			  label: '一级 2',
-			  children: [{
-				id: 21,
-				label: '二级 2-1'
-			  }, {
-				id: 22,
-				label: '二级 2-2',
-				disabled: false
-			  },{
-				id: 23,
-				label: '三级 2-3',
-				disabled: false
-			  }]
-			}],
-			chooseArr: []
+			treeData: [],
+			chooseArr: [],
+			chooseArrKeys: []
         }
     },
     methods:{
@@ -160,10 +131,10 @@ export default {
 		console.log(this.$refs.tree.getCheckedNodes());
 	  },
 	  getCheckedKeys() {
-		console.log(this.$refs.tree.getCheckedKeys());
-		console.log(this.$refs.tree.getCheckedNodes());
+		// console.log(this.$refs.tree.getCheckedKeys());
+		// console.log(this.$refs.tree.getCheckedNodes());
 		this.chooseArr = this.$refs.tree.getCheckedNodes()
-		// this.chooseArrKeys = this.$refs.tree.getCheckedKeys()
+		this.chooseArrKeys = this.$refs.tree.getCheckedKeys()
 	  },
 	  getOrderId(val) {
 	  	if(!val) return
@@ -215,13 +186,14 @@ export default {
 		  this.$confirm('确定清除全部选择的接口吗',{type: 'warning'})
 		    .then(_ => {
 		  	this.$refs.tree.setCheckedKeys([]);
+			this.$refs.tree.setCheckedNodes([])
 		  	done();
 		    })
 		    .catch(_ => {});
 		
 	  },
 	  goSearch() {
-		this.treeData = []
+		this.getSelects()
 	  },
 	  apply() {
 		  if (this.chooseArr.length===0) {
@@ -233,9 +205,9 @@ export default {
 			// http://192.168.0.99:8023/order/interface/api/apply
 			let params = {
 				  orderId: this.orderId,
-				  intfIds: this.chooseArr
+				  intfIds: this.chooseArrKeys
 			  }
-			this.$axios.post(`${this.host_url}/user/captcha/get`,params)
+			this.$axios.post('http://192.168.0.99:8023/order/interface/api/apply',params)
 			  .then((res) =>{
 				  console.log(res)
 				  if (res.state===200) {
@@ -291,10 +263,24 @@ export default {
 		  this.applyApi = true
 		  this.getSelects()
 	  },
+	  resolveData(arr) {
+		  arr.forEach(item => {
+			  let obj = {}
+			  obj['id'] = item.dimId
+			  obj['label'] = item.dimName
+			  let child = []
+			  item.intfList.forEach(demo => {
+				  child.push({id: demo.id,label: demo.name,checked: demo.applied===1})
+			  })
+			  obj['children'] = child
+			  this.treeData.push(obj)
+		  })
+	  },
 	  getSelects() {
 		  let params = {
 		  	  orderId: this.orderId,
-		  	  pageNum: 1
+		  	  pageNum: 1,
+			  name: this.searchData
 		    }
 		  this.$axios.get('http://192.168.0.99:8023/order/interface/api/applied',params)
 		    .then((res) =>{
@@ -304,6 +290,7 @@ export default {
 		  	  } else {
 		  		this.$message.error(res.message);
 		  	  }
+			  this.resolveData(res.data)
 		    })
 		    .catch(err=>{
 		  	  this.$message.error(err);
