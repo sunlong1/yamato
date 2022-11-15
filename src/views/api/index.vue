@@ -2,12 +2,12 @@
     <div class="index-box">
 	  <div class="item-one-inner">
 		  <div class="item-one">
-			  <div class="item-dwdew">
+			  <div class="item-dwdew" :loading="startLoading">
 				  <div class="rtghn" @mouseleave="leaveHover">
 					  <ul class="ulwdw">
 						  <li v-for="(item,index) in result" @mouseover="goHover(item.dimId)">
 							  <div>
-								  <img class="one" :src="item.dimPicture"/>
+								  <img class="one" :src="item.dimDefPicture"/>
 								  <span>{{item.dimName}}</span>
 								  <span class="wdewd ddew">|</span>
 								  <span class="wdewd" @click="goDetail(item.dimId,item.intfList[0].id)">{{item.intfList[0].name.slice(0,4)}}</span>
@@ -195,7 +195,8 @@ export default {
     return{
 	  hoverShow: 0,
 	  result: [],
-	  itemList: {}
+	  itemList: {},
+	  startLoading: false
 	  // array1: [
 		 //  {
 			//   title: '企业基本信息',
@@ -230,6 +231,7 @@ export default {
 	}
   },
   mounted(){
+	  this.startLoading = true
 	  let params = {
 		  dimIntfNum: 8
 	  }
@@ -243,8 +245,10 @@ export default {
 		  }
 		  this.result = res.data.slice(0,6)
 		  this.resolveData()
+		  this.startLoading = false
 	  })
 	  .catch(err=>{
+		  this.startLoading = false
 		  this.$message.error(err);
 	  })
   }

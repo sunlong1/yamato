@@ -7,7 +7,7 @@
 				<ul class="vghss">
 					<li v-for="(demo,id) in arr3.slice(index*5,index*5+5)">
 						<div class="rfgns">
-							<img src="../../assets/index&api/hongxin.png"/>
+							<img :src="demo.picture"/>
 							<p>{{demo.name}}</p>
 						</div>
 						<p class="sjddd">{{demo.descr}}</p>
@@ -24,7 +24,7 @@
 			    <li v-for="(item,index) in caselist" @click="listChange(item.id,item.name,item.num)" v-bind:class="{'active': shows==item.id}">
 			        <div class="wdwdl">
 						<!--  shows==item.id?item.acIcon:item.icon -->
-			        	<img :src="item.picture"/>
+			        	<img :src="shows==item.id?item.selPicture:item.defPicture"/>
 			        	<p>{{item.name}}</p>
 			        </div>
 			        <span>({{item.num}})</span>
@@ -35,7 +35,7 @@
 				<ul v-if="arr2.length>0">
 					<li v-for="item in arr2">
 						<div class="rtgh">
-							<img src="../../assets/index&api/hongxin.png"/>
+							<img :src="item.picture"/>
 						</div>
 						<div class="ijhb">
 							<h6>{{item.name}}</h6>
@@ -207,7 +207,6 @@ export default {
 						align-items: center;
 						margin-bottom: 12px;
 						img {
-							width: 18px;
 							height: 20px;
 							padding: 6px;
 							background: linear-gradient(319.68deg, #E3EDFF 6.07%, #F5F9FF 92.78%);
@@ -306,8 +305,8 @@ export default {
 							align-items: center;
 							justify-content: center;
 							margin-right: 20px;
+							border-radius: 2px;
 							img {
-								width: 42px;
 								height: 48px;
 							}
 						}

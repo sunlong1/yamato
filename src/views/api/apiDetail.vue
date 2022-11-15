@@ -19,7 +19,7 @@
 					@open="handleOpen"
 					@close="handleClose">
 					  <el-submenu v-for="item in dimList" :index="item.dimId.toString()" :key="item.dimId">
-						<template slot="title"><img class="sokj" :src="item.dimPicture"/>{{item.dimName}}</template>
+						<template slot="title"><img class="sokj" :src="item.dimDefPicture"/>{{item.dimName}}</template>
 						<el-menu-item-group>
 						  <el-menu-item v-for="demo in item.intfList" :index="item.dimId+ '-' + demo.id" :key="demo.id">{{demo.name}}</el-menu-item>
 						</el-menu-item-group>
@@ -57,14 +57,14 @@
 							<p><span>请求方式：</span>{{detailObj.reqMethod}}</p>
 							<p><span>请求参数：</span>{{detailObj.reqParam || '---'}}</p>
 							<p><span>返回参数格式：</span>{{detailObj.respFormat}}</p>
-							<p class="spec"><span>请求示例：</span>{{detailObj.respExample || '---'}}</p>
+							<p class="spec"><span>请求示例：</span>{{detailObj.reqExample || '---'}}</p>
 							<div class="rghds" @click="testApi">
 								测试接口
 							</div>
 						</div>
 						<div class="iuyt rfghj">
-							<p><span>授权认证方式：</span>HTTP请求添加密钥Authorization</p>
-							<p><span>授权认证示例：</span>HttpGet get = new HttpGet(url); get.setHeader(“Authorization”, token);</p>
+							<p><span>授权认证方式：</span>{{detailObj.authorizationWay}}</p>
+							<p><span>授权认证示例：</span>{{detailObj.authorizationExample}}</p>
 						</div>
 					</div>
 					
@@ -81,22 +81,22 @@
 							  :data="tableData"
 							  style="width: 100%">
 							  <el-table-column
-								prop="date1"
+								prop="name"
 								label="参数名"
 								width="180">
 							  </el-table-column>
 							  <el-table-column
-								prop="date2"
+								prop="type"
 								label="类型"
 								width="120">
 							  </el-table-column>
 							  <el-table-column
-								prop="date3"
+								:prop="fill?'是':'否'"
 								width="120"
 								label="是否必填">
 								</el-table-column>
 							  <el-table-column
-								prop="date4"
+								prop="desc"
 								label="说明">
 							  </el-table-column>
 							</el-table>
@@ -112,7 +112,7 @@
 							<img src="../../assets/jiantou/right_big.png"/>
 						</div>
 						<div class="oiugf">
-							<pre>{{ JSON.stringify(result, null, 4)  }}</pre>
+							<pre>{{ JSON.stringify(JSON.parse(detailObj.respExample), null, 4)  }}</pre>
 						</div>
 					</div>
 					
@@ -129,22 +129,22 @@
 							  :data="quaryData"
 							  style="width: 100%">
 							  <el-table-column
-								prop="date1"
+								prop="name"
 								label="参数名"
 								width="180">
 							  </el-table-column>
 							  <el-table-column
-								prop="date2"
+								prop="type"
 								label="字段类型"
 								width="120">
 							  </el-table-column>
 							  <el-table-column
-								prop="date3"
+								prop="length"
 								width="120"
 								label="长度">
 								</el-table-column>
 							  <el-table-column
-								prop="date4"
+								prop="desc"
 								label="备注">
 							  </el-table-column>
 							</el-table>
@@ -167,12 +167,12 @@
 							  :data="codeData"
 							  style="width: 100%">
 							  <el-table-column
-								prop="date1"
+								prop="code"
 								label="代码"
 								width="450">
 							  </el-table-column>
 							  <el-table-column
-								prop="date2"
+								prop="typeDesc"
 								label="说明"
 								width="450">
 							  </el-table-column>
@@ -429,6 +429,9 @@ export default {
 			.then((res) =>{
 			    console.log(res)
 				this.detailObj = res.data
+				this.tableData = JSON.parse(res.data.reqParamPretty)
+				this.quaryData = JSON.parse(res.data.respFiledDesc)
+				this.codeData = res.data.respCodes
 			})
 			this.selectId = id
 		}
@@ -633,6 +636,7 @@ export default {
 					.ewdf {
 						display: flex;
 						justify-content: space-between;
+						margin-bottom: 16px;
 						.vfths {
 							display: flex;
 							align-items: center;
