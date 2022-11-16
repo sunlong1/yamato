@@ -37,7 +37,7 @@
 						<div class="rtgh">
 							<img :src="item.picture"/>
 						</div>
-						<div class="ijhb">
+						<div class="ijhb" @click="goDetail(shows,item.id)">
 							<h6>{{item.name}}</h6>
 							<p class="tyhn">{{item.descr}}</p>
 							<div class="gtrr">
@@ -45,7 +45,7 @@
 									<p>接口ID：<span class="wdwe">{{item.showId}}</span></p>
 									<p>价格：<span class="gddss">￥{{item.price}}</span></p>
 								</div>
-								<div class="fdds" @click="goDetail(shows,item.id)">申请接口</div>
+								<div class="fdds">申请接口</div>
 							</div>
 						</div>
 					</li>
@@ -99,6 +99,7 @@ export default {
 		handleCurrentChange(val) {
 			console.log(val)
 			this.getRight('',val)
+			window.scrollTo(0,0);
 		},
 		getRight(name,page) {
 			console.log(name,page)
@@ -262,6 +263,7 @@ export default {
 					justify-content: space-between;
 					align-items: center;
 					color: #333;
+					cursor: pointer;
 					.wdwdl {
 					  display: flex;
 					  align-items: center;

@@ -185,7 +185,7 @@ export default {
 				// this.indexSpan=this.$store.state.indexspan
 				
 				
-				this.$axios.get(`https://${this.domainUrl}`,this.editForm)
+				this.$axios.get(`http://${this.domainUrl}`,this.editForm)
 				  .then((res) =>{
 					  console.log(res)
 					  if (res.state===200) {

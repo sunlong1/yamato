@@ -141,6 +141,10 @@ export default {
 	  	if(!val) return
 	  	this.orderId = val
 	  	this.getCase()
+		if (this.$route.query.from==='detail') {
+			this.getSelects()
+			this.applyApi = true
+		}
 	  },
 	  getTable() {
 		  this.getCase()
@@ -271,7 +275,7 @@ export default {
 	  resolveData(arr) {
 		  arr.forEach(item => {
 			  let obj = {}
-			  obj['id'] = item.dimId
+			  obj['id'] = item.dimId+'-88'
 			  obj['label'] = item.dimName
 			  let child = []
 			  item.intfList.forEach(demo => {

@@ -19,7 +19,7 @@
 					@open="handleOpen"
 					@close="handleClose">
 					  <el-submenu v-for="item in dimList" :index="item.dimId.toString()" :key="item.dimId">
-						<template slot="title"><img class="sokj" :src="item.dimDefPicture"/>{{item.dimName}}</template>
+						<template slot="title"><img class="sokj" :src="item.dimDefPicture"/>{{item.dimName}} <span>({{item.intfNum}})</span></template>
 						<el-menu-item-group>
 						  <el-menu-item v-for="demo in item.intfList" :index="item.dimId+ '-' + demo.id" :key="demo.id">{{demo.name}}</el-menu-item>
 						</el-menu-item-group>
@@ -69,14 +69,14 @@
 					</div>
 					
 					<div class="rtyhe">
-						<div class="ewdf">
+						<div class="ewdf" @click="oneTap=!oneTap">
 							<div class="vfths">
 								<span></span>
 								<p>请求参数(Query)</p>
 							</div>
-							<img src="../../assets/jiantou/right_big.png"/>
+							<img v-bind:class="{'ouuhs': !oneTap}" src="../../assets/jiantou/right_big.png"/>
 						</div>
-						<div class="vghs">
+						<div v-bind:class="['vghs',{'vghsdws': oneTap}]">
 							<el-table
 							  :data="tableData"
 							  style="width: 100%">
@@ -91,7 +91,7 @@
 								width="120">
 							  </el-table-column>
 							  <el-table-column
-								:prop="fill?'是':'否'"
+								prop="fill"
 								width="120"
 								label="是否必填">
 								</el-table-column>
@@ -104,27 +104,27 @@
 					</div>
 					
 					<div class="rtyhe ohgdss">
-						<div class="ewdf">
+						<div class="ewdf" @click="twoTap=!twoTap">
 							<div class="vfths">
 								<span></span>
 								<p>返回结果JSON示例</p>
 							</div>
-							<img src="../../assets/jiantou/right_big.png"/>
+							<img v-bind:class="{'ouuhs': !twoTap}" src="../../assets/jiantou/right_big.png"/>
 						</div>
-						<div class="oiugf">
-							<pre>{{ JSON.stringify(JSON.parse(detailObj.respExample), null, 4)  }}</pre>
+						<div v-bind:class="['oiugf',{'vghsdws': twoTap}]">
+							<pre>{{ JSON.stringify(respExample, null, 4)  }}</pre>
 						</div>
 					</div>
 					
 					<div class="rtyhe ohgdss">
-						<div class="ewdf">
+						<div class="ewdf" @click="threeTap=!threeTap">
 							<div class="vfths">
 								<span></span>
 								<p>返回字段说明</p>
 							</div>
-							<img src="../../assets/jiantou/right_big.png"/>
+							<img v-bind:class="{'ouuhs': !threeTap}" src="../../assets/jiantou/right_big.png"/>
 						</div>
-						<div class="yhnww">
+						<div v-bind:class="['yhnww',{'vghsdws': threeTap}]">
 							<el-table
 							  :data="quaryData"
 							  style="width: 100%">
@@ -154,15 +154,15 @@
 				</div>
 			
 				<div class="wetdfw edffd">
-					<div class="rtyhe" id="wrongcode">
+					<div class="rtyhe" id="wrongcode"  @click="fourTap=!fourTap">
 						<div class="ewdf">
 							<div class="vfths">
 								<span></span>
 								<p>错误代码</p>
 							</div>
-							<img src="../../assets/jiantou/right_big.png"/>
+							<img v-bind:class="{'ouuhs': !fourTap}" src="../../assets/jiantou/right_big.png"/>
 						</div>
-						<div class="vghs">
+						<div v-bind:class="['vghs',{'vghsdws': fourTap}]">
 							<el-table
 							  :data="codeData"
 							  style="width: 100%">
@@ -182,15 +182,15 @@
 				</div>
 				
 				<div class="wetdfw edffd">
-					<div class="rtyhe" id="example">
+					<div class="rtyhe" id="example"  @click="fiveTap=!fiveTap">
 						<div class="ewdf">
 							<div class="vfths">
 								<span></span>
 								<p>示例代码</p>
 							</div>
-							<img src="../../assets/jiantou/right_big.png"/>
+							<img v-bind:class="{'ouuhs': !fiveTap}" src="../../assets/jiantou/right_big.png"/>
 						</div>
-						<div class="edfgh">
+						<div v-bind:class="['edfgh',{'vghsdws': fiveTap}]">
 							<ul>
 								<li @click="showIndex=1" v-bind:class="{'active': showIndex===1}">JAVA</li>
 								<li @click="showIndex=2" v-bind:class="{'active': showIndex===2}">PHP</li>
@@ -199,7 +199,7 @@
 								<li @click="showIndex=5" v-bind:class="{'active': showIndex===5}">Node.js</li>
 							</ul>
 						</div>
-						<div class="ftyuj">
+						<div v-bind:class="['ftyuj',{'vghsdws': fiveTap}]">
 							<pre>
 								package com.example.demo.http;
 								
@@ -259,6 +259,12 @@ export default {
 			rightIndex: 1,
 			showIndex: 1,
 			activeName: 'first',
+			oneTap: false,
+			twoTap: false,
+			threeTap: false,
+			fourTap: false,
+			fiveTap: false,
+			sixTap: false,
 			fixed: false,
 			dimList: [],
 			dimListDetail:{},
@@ -310,7 +316,8 @@ export default {
 				}
 			],
 			total: 0,
-			detailObj: {}
+			detailObj: {},
+			respExample: undefined
 		}
     },
     methods:{
@@ -338,7 +345,7 @@ export default {
 		apply() {
 			let user = this.$cookies.getJSON('user')
 			if (user && user.userId) {
-				this.$router.push('/center/case3')
+				this.$router.push('/center/case3?from=detail')
 			} else {
 				this.$store.commit('setShowLogin',1)
 			}
@@ -367,6 +374,7 @@ export default {
 		 console.log(key, keyPath);
 		 let id = parseInt(key.split('-')[1])
 		 this.getDetail(id)
+		 window.scrollTo(0,0);
 	    },
 		debounce(fn,wait){
 		  var timer = null;
@@ -469,8 +477,14 @@ export default {
 			.then((res) =>{
 			    console.log(res)
 				this.detailObj = res.data
-				this.tableData = JSON.parse(res.data.reqParamPretty)
-				this.quaryData = JSON.parse(res.data.respFiledDesc)
+				try{
+					this.tableData = JSON.parse(res.data.reqParamPretty)
+					this.quaryData = JSON.parse(res.data.respFiledDesc)
+					this.respExample = JSON.parse(res.data.respExample)
+				}catch(e){
+					console.log(e)
+				}
+				console.log(this.detailObj.respExample)
 				this.codeData = res.data.respCodes
 			})
 			this.selectId = id
@@ -527,11 +541,17 @@ export default {
 				}
 				.el-menu {
 					border-right: none;
+					position: relative;
 					.sokj {
 						width: 14px;
 						padding-right: 8px;
 						position: relative;
 						top: -3px;
+					}
+					span {
+						position: absolute;
+						right: 60px;
+						top: 0;
 					}
 				}
 			}
@@ -624,6 +644,8 @@ export default {
 					li.active {
 						background-color: #1C66E5;
 						color: #fff;
+						position: relative;
+						top: 1px;
 						a {
 							color: #fff;
 						}
@@ -692,6 +714,22 @@ export default {
 							width: 8px;
 							height: 14px;
 						}
+						.ouuhs {
+							transform: rotate(90deg);
+							transform-origin: center ;
+						}
+					}
+					.vghs {
+						height: 100%;
+						// transition: height 1s linear;
+						// -webkit-transition: height 2s linear;
+						// overflow: hidden;
+					}
+					.vghsdws {
+						height: 0 !important;
+						padding: 0 !important;
+						border: none !important;
+						overflow: hidden;
 					}
 					.edfgh {
 						background: #FCFCFC;

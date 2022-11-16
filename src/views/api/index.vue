@@ -108,15 +108,19 @@
 		  <ul>
 			  <li>
 				  <img src="../../assets/index&api/ccc1.png"/>
+				  <p>企业主数据整理和填充</p>
 			  </li>
 			  <li>
 				  <img src="../../assets/index&api/ccc2.png"/>
+				  <p>客商风险监控</p>
 			  </li>
 			  <li>
 				  <img src="../../assets/index&api/ccc3.png"/>
+				  <p>税源发现</p>
 			  </li>
 			  <li>
 				  <img src="../../assets/index&api/ccc4.png"/>
+				  <p>寻客画像</p>
 			  </li>
 		  </ul>
 	  </div>
@@ -427,6 +431,11 @@ export default {
 			li {
 				img {
 				  width: 300px;
+				}
+				p {
+					padding: 0;
+					position: relative;
+					top: -40px
 				}
 			}
 		}	
