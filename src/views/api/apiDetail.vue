@@ -200,7 +200,47 @@
 							</ul>
 						</div>
 						<div class="ftyuj">
-							<pre>{{ JSON.stringify(result, null, 4)  }}</pre>
+							<pre>
+								package com.example.demo.http;
+								
+								import org.apache.http.client.methods.CloseableHttpResponse;
+								import org.apache.http.client.methods.HttpGet;
+								import org.apache.http.impl.client.CloseableHttpClient;
+								import org.apache.http.impl.client.HttpClients;
+								import org.apache.http.util.EntityUtils;
+								
+								import java.io.IOException;
+								
+								public class HttpDemo {
+								
+								    public static void main(String[] args) {
+								        String secretkey = "您的secretkey";
+								        String url = "http://api.workatdata.com/open/dataxy/gongshang/base/info/query?keyword=万科企业股份有限公司";
+								
+								        HttpGet httpGet = new HttpGet(url);
+								        httpGet.setHeader("secretkey", secretkey);
+								
+								        CloseableHttpClient httpClient = HttpClients.createDefault();
+								        CloseableHttpResponse httpResponse;
+								        String result = null;
+								        try {
+								            httpResponse = httpClient.execute(httpGet);
+								            if (httpResponse.getStatusLine().getStatusCode() == 200) {
+								                result = EntityUtils.toString(httpResponse.getEntity(), "utf-8");
+								            }
+								        } catch (IOException e) {
+								            e.printStackTrace();
+								        } finally {
+								            try {
+								                httpClient.close();
+								            } catch (IOException e) {
+								                e.printStackTrace();
+								            }
+								        }
+								        System.out.println(result);
+								    }
+								}
+							</pre>
 						</div>
 					</div>
 				</div>
@@ -701,6 +741,14 @@ export default {
 					margin-top: 12px;
 					padding: 16px;
 					box-sizing: border-box;
+					position: relative;
+					pre {
+						width: 100%;
+						height: 100%;
+						position: absolute;
+						left: -542px;
+						top:0
+					}
 				}
 				
 			}

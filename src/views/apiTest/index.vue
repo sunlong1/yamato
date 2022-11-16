@@ -80,8 +80,8 @@
 						<div class="edsff">请求信息</div>
 						<div class="efgbs">
 							<p>请求方式：{{detailObj.reqMethod}}</p>
-							<p>请求地址：<br/>{{detailObj.url}}</p>
-							<p>请求参数：<br/>{{detailObj.reqParam || '---'}}</p>
+							<p>请求地址：<br/>{{detailObj.domainUrl}}</p>
+							<p>请求参数：<br/>{{`keyword=${editForm.keyword}&pageNum=${editForm.pageNum}&pageSize=${editForm.pageSize}`}}</p>
 							<p>请求token：<br/>{{detailObj.reqMethod}}</p>
 						</div>
 						<div class="dfghn">
@@ -111,12 +111,6 @@ export default {
 			options01: [],
 			rightIndex: 1,
 			activeName: 'first',
-			tableData: [{
-				date1: 'keyword',
-				date2: 'string',
-				date3: '是',
-				date4: '企业id/企业名称/统一信用代码/注册号'
-			  }],
 			  editForm: {
 			  	keyword: '',
 			  	pageNum: '',
@@ -130,45 +124,6 @@ export default {
 			    value: 2,
 			    label: '密钥2'
 			  }],
-			result: {
-				tmList: [
-					{
-						"regNo": "60618100",
-						"tmName": "百度问一问",
-						"tmPic": "https://tm-image.tianyancha.com/tm/822a4e0560502dd161421611dc5208ed.jpg",
-						"appDate": "2021-11-16",
-						"tmClass": "38",
-						"id": '230424694',
-						"intCls": "38-通讯服务",
-						"applicantCn": "北京百度网讯科技有限公司",
-						"category": "商标注册申请---申请收文",
-					}]
-				},
-			quaryData: [{
-				date1: 'keyword',
-				date2: 'string',
-				date3: '255',
-				date4: '企业id/企业名称/统一信用代码/注册号'
-			  },{
-				date1: 'keyword',
-				date2: 'string',
-				date3: '255',
-				date4: '企业id/企业名称/统一信用代码/注册号'
-			  }],
-			codeData: [
-				{
-					date1: '300000',
-					date2: '无数据',  
-				},
-				{
-					date1: '300001',
-					date2: '请求失败',  
-				},
-				{
-					date1: '300002',
-					date2: '账号失效',  
-				}
-			],
 			// editFormRules: {
 			// 	// informChannel: [
 			// 	// 	{ required: true, message: '不能为空', trigger: 'blur' }
@@ -180,7 +135,8 @@ export default {
 			// 	// 	{ required: true, message: '不能为空', trigger: 'blur' }
 			// 	// ]
 			// },
-			editLoading: false
+			editLoading: false,
+			domainUrl: ''
 		}
     },
     methods:{
@@ -208,6 +164,7 @@ export default {
 		editSubmit() {
 			let user = this.$cookies.getJSON('user')
 			if (user && user.userId) {
+				this.editForm.miyao = 'dewdwdewd'
 				if(!this.editForm.miyao) {
 				   this.$message.error('请选择密钥');
 				   return
@@ -224,6 +181,23 @@ export default {
 					this.$message.error('请输入每页条数');
 					return
 				}
+				// this.$store.commit('setindex',index)
+				// this.indexSpan=this.$store.state.indexspan
+				
+				
+				this.$axios.get(`https://${this.domainUrl}`,this.editForm)
+				  .then((res) =>{
+					  console.log(res)
+					  if (res.state===200) {
+						
+					  } else {
+						this.$message.error(res.message);
+					  }
+				  })
+				  .catch(err=>{
+					  this.$message.error(err);
+				  })
+
 			} else {
 				this.$store.commit('setShowLogin',1)
 			}
@@ -313,6 +287,7 @@ export default {
 			.then((res) =>{
 			    console.log(res)
 				this.detailObj = res.data
+				this.domainUrl = res.data.domainUrl
 			})
 			this.selectId = id
 		},
