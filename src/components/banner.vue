@@ -141,9 +141,9 @@ let timer = null
 		input3: '',
 		name: 'sunlong',
 		form: {
-		  phone: '13161257792',
-		  code: 'e32e2',
-		  password: 'ewdwed',
+		  phone: '',
+		  code: '',
+		  password: '',
 		  password2: '',
 		  company: '',
 		  email: ''
