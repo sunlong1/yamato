@@ -239,7 +239,8 @@ export default {
 	  let params = {
 		  dimIntfNum: 8
 	  }
-	  this.$axios.get('http://192.168.0.99:8027/portal/api/dim/interface/home',params)
+	  // 8027
+	  this.$axios.get('http://192.168.0.99:8020/portal/api/dim/interface/home',params)
 	  .then((res) =>{
 		  console.log(res)
 		  if (res.state===200) {

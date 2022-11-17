@@ -168,7 +168,8 @@ export default {
 				  date: this.date
 			  }
 			this.tableLoading = true
-		    this.$axios.get('http://192.168.0.99:8023/order/interface/api',params)
+			// 8023
+		    this.$axios.get('http://192.168.0.99:8020/order/interface/api',params)
 			  .then((res) =>{
 				  console.log(res)
 				  if (res.state===200) {

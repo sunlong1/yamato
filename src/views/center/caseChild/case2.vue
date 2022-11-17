@@ -143,7 +143,8 @@
 				  userId: this.$cookies.getJSON('user').userId,
 				  name	: this.ruleForm.orgName
 			  }
-			  this.$axios.get('http://192.168.0.99:8024/user/org/base/info',params)
+			  // 8024
+			  this.$axios.get('http://192.168.0.99:8020/user/org/base/info',params)
 			  .then((res) =>{
 				  if (res.state===200) {
 					this.ruleForm.usCreditCode = res.data.usCreditCode
@@ -205,7 +206,8 @@
 			  businessLicense: 'www',
 			  goCert: 1
 			}
-           this.$axios.post('http://192.168.0.99:8024/user/org/cert/submit',params)
+			// 8024
+           this.$axios.post('http://192.168.0.99:8020/user/org/cert/submit',params)
 			  .then((res) =>{
 				  console.log(res)
 				  if (res.state===200) {
@@ -245,7 +247,8 @@
 			  userId: this.$cookies.getJSON('user').userId,
 			  orderId: ''
 		}
-		this.$axios.get('http://192.168.0.99:8024/user/org/cert/info',params)
+		// 8024
+		this.$axios.get('http://192.168.0.99:8020/user/org/cert/info',params)
 		  .then((res) =>{
 			  console.log(res)
 			  if (res.state===200) {

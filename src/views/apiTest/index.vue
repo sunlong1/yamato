@@ -185,7 +185,6 @@ export default {
 				// this.$store.commit('setindex',index)
 				// this.indexSpan=this.$store.state.indexspan
 				
-				
 				this.$axios.get(`http://${this.domainUrl}`,this.editForm)
 				  .then((res) =>{
 					  console.log(res)
@@ -205,7 +204,8 @@ export default {
 		},
 		getLeft() {
 			this.leftLoading = true
-			this.$axios.get('http://192.168.0.99:8027/portal/api/dim/interface/detail')
+			// 8027
+			this.$axios.get('http://192.168.0.99:8020/portal/api/dim/interface/detail')
 			  .then((res) =>{
 				  console.log(res)
 				  if (res.state===200) {
@@ -225,66 +225,9 @@ export default {
 				  this.leftLoading = false
 			  })
 		},
-		// getDimList() {
-		// 	this.leftLoading = true
-		// 	this.$axios.get(`http://192.168.0.99:8027/portal/api/interface/dim`)
-		// 	  .then((res) =>{
-		// 		  console.log(res)
-		// 		  if (res.state===200) {
-					
-		// 		  } else {
-		// 		    this.leftLoading = false
-		// 			this.$message.error(res.message);
-		// 		  }
-		// 		  this.dimList = res.data.items
-		// 		  this.total = res.data.total
-		// 		  this.resolveDimList(this.dimList)
-		// 		  // this.getDrop()
-		// 		  // this.shows = this.caselist[0].id
-		// 		  // this.getRight(this.caselist[0].name,1)
-		// 		  // this.getRight(this.shows,'',1)
-		// 	  })
-		// 	  .catch(err=>{
-		// 		  this.leftLoading = false
-		// 		  this.$message.error(err);
-		// 	  })
-		// },
-		// resolveDimList(dimList) {
-		// 	dimList.forEach((item,index)=>{
-		// 		// this.getDrop(item.id,'',1,dimList.length)
-		// 		this.dimListDetail[item.dimId] = item.intfList
-		// 		// if (dimList.length===index+1) {
-		// 		// 	this.leftLoading=false
-		// 		// 	this.showLeft = true
-		// 		// }
-		// 	})
-		// },
-		// getDrop(dimId,name,page,last) {
-		// 	let params = {
-		// 		  dimId: dimId,
-		// 		  name: '',
-		// 		  pageNum: page || 1
-		// 	  }
-		// 	this.$axios.get(`http://192.168.0.99:8027/portal/api/interface`,params)
-		// 	  .then((res) =>{
-		// 		  console.log(res)
-		// 		  if (res.state===200) {
-					
-		// 		  } else {
-		// 			this.$message.error(res.message);
-		// 		  }
-		// 		  this.dimListDetail[dimId] = res.data.item.records[0].intfList
-		// 		  if (Object.getOwnPropertyNames(this.dimListDetail).length === last) {
-		// 			this.leftLoading=false
-		// 			this.showLeft = true
-		// 		  }
-		// 	  })
-		// 	  .catch(err=>{
-		// 		  this.$message.error(err);
-		// 	  })
-		// },
 		getDetail(id) {
-			this.$axios.get('http://192.168.0.99:8027/portal/api/interface/details',{id: id})
+			// 8027
+			this.$axios.get('http://192.168.0.99:8020/portal/api/interface/details',{id: id})
 			.then((res) =>{
 			    console.log(res)
 				this.detailObj = res.data
@@ -307,7 +250,8 @@ export default {
 				  userId: this.$cookies.getJSON('user').userId,
 				  billingMode: ''
 			  }
-			this.$axios.get('http://192.168.0.99:8023/order/secret',params)
+			  // 8023
+			this.$axios.get('http://192.168.0.99:8020/order/secret',params)
 			  .then((res) =>{
 				  console.log(res)
 				  if (res.state===200) {

@@ -215,7 +215,8 @@ let timer = null
 			  phone: this.form.phone,
 			  captchaType: this.type==='register'?1:this.type==='forget'?3:2
 		  }
-		  this.$axios.get('http://192.168.0.99:8024/user/captcha/get',params)
+		  // 8024
+		  this.$axios.get('http://192.168.0.99:8020/user/captcha/get',params)
 		  .then((res) =>{
 		      console.log(res)
 			  if (res.state===200) {
@@ -282,7 +283,8 @@ let timer = null
 					}
 					url = '/user/password/update'
 				}
-				this.$axios.post(`http://192.168.0.99:8024${url}`,params)
+				// 8024
+				this.$axios.post(`http://192.168.0.99:8020${url}`,params)
 				  .then((res) =>{
 					  console.log(res)
 					  if (res.state===200) {

@@ -156,7 +156,8 @@ export default {
 			  name: this.input1
 	  	  }
 		  this.tableLoading = true
-	      this.$axios.get('http://192.168.0.99:8023/order/interface/api',params)
+		  // 8023
+	      this.$axios.get('http://192.168.0.99:8020/order/interface/api',params)
 	  	  .then((res) =>{
 	  		  console.log(res)
 	  		  if (res.state===200) {
@@ -212,7 +213,8 @@ export default {
 				  orderId: this.orderId,
 				  intfIds: this.chooseArrKeys
 			  }
-			this.$axios.post('http://192.168.0.99:8023/order/interface/api/apply',params)
+			  // 8023
+			this.$axios.post('http://192.168.0.99:8020/order/interface/api/apply',params)
 			  .then((res) =>{
 				  console.log(res)
 				  if (res.state===200) {
@@ -250,7 +252,8 @@ export default {
 		  intfId: '',
 		  orderId: this.orderId
 		}
-		this.$axios.get('http://192.168.0.99:8023/order/interface/api/applied/delete',params)
+		// 8023
+		this.$axios.get('http://192.168.0.99:8020/order/interface/api/applied/delete',params)
 		  .then((res) =>{
 			  console.log(res)
 			  if (res.state===200) {
@@ -291,7 +294,8 @@ export default {
 		  	  pageNum: 1,
 			  name: this.searchData
 		    }
-		  this.$axios.get('http://192.168.0.99:8023/order/interface/api/applied',params)
+			// 8023
+		  this.$axios.get('http://192.168.0.99:8020/order/interface/api/applied',params)
 		    .then((res) =>{
 		  	  console.log(res)
 		  	  if (res.state===200) {

@@ -84,7 +84,8 @@
       		  userId: this.$cookies.getJSON('user').userId,
       		  billingMode: this.filters01
       	  }
-      	this.$axios.get('http://192.168.0.99:8023/order/secret',params)
+		// 8023
+      	this.$axios.get('http://192.168.0.99:8020/order/secret',params)
       	  .then((res) =>{
       		  console.log(res)
       		  if (res.state===200) {

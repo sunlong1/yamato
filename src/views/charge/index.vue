@@ -203,8 +203,8 @@ export default {
 			  amount: this.form.number,
 			  giveAmount: 0
 		  }
-		  // this.form.number
-		this.$axios.post('http://192.168.0.99:8025/pay/amount/charge',params)
+		  // 8025
+		this.$axios.post('http://192.168.0.99:8020/pay/amount/charge',params)
 		  .then((res) =>{
 			  console.log(res)
 			  if (res.state===200) {
@@ -228,7 +228,8 @@ export default {
 		let params = {
 			  userId: this.$cookies.getJSON('user').userId
 		  }
-		this.$axios.get('http://192.168.0.99:8024/user/org/cert/state',params)
+	    // 8024
+		this.$axios.get('http://192.168.0.99:8020/user/org/cert/state',params)
 		  .then((res) =>{
 			  console.log(res)
 			  if (res.state===200) {

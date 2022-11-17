@@ -194,7 +194,8 @@ export default {
 				  userId: this.$cookies.getJSON('user').userId,
 				  orderId: this.orderId
 			  }
-            this.$axios.get('http://192.168.0.99:8024/user/account/info',params)
+		    // 8024
+            this.$axios.get('http://192.168.0.99:8020/user/account/info',params)
 			  .then((res) =>{
 				  console.log(res)
 				  if (res.state===200) {
@@ -233,7 +234,8 @@ export default {
 					url = '/user/email/update'
 				}
 				params['userId'] = this.$cookies.getJSON('user').userId
-				this.$axios.post(`http://192.168.0.99:8024${url}`,params)
+				// 8024
+				this.$axios.post(`http://192.168.0.99:8020${url}`,params)
 				  .then((res) =>{
 					  console.log(res)
 					  if (res.state===200) {
@@ -266,7 +268,8 @@ export default {
 			phone: this.userInfo.phone,
 			captchaType: 4
 		 }
-		 this.$axios.get('http://192.168.0.99:8024/user/captcha/get',params)
+		 // 8024
+		 this.$axios.get('http://192.168.0.99:8020/user/captcha/get',params)
 		 .then((res) =>{
 		     console.log(res)
 			  if (res.state===200) {
@@ -305,7 +308,8 @@ export default {
 			phone: this.editForm.newPhone,
 			captchaType: 4
 		  }
-		  this.$axios.get('http://192.168.0.99:8024/user/captcha/get',params)
+		  // 8024
+		  this.$axios.get('http://192.168.0.99:8020/user/captcha/get',params)
 		  .then((res) =>{
 		      console.log(res)
 			  if (res.state===200) {

@@ -109,7 +109,8 @@ export default {
 				  name: name,
 				  pageNum: page
 			  }
-			this.$axios.get(`http://192.168.0.99:8027/portal/api/interface`,params)
+		    // 8027
+			this.$axios.get(`http://192.168.0.99:8020/portal/api/interface`,params)
 			  .then((res) =>{
 				  console.log(res)
 				  if (res.state===200) {
@@ -129,7 +130,8 @@ export default {
 			  })
 		},
 		getLeft:function(){
-			this.$axios.get(`http://192.168.0.99:8027/portal/api/interface/dim`)
+			// 8027
+			this.$axios.get(`http://192.168.0.99:8020/portal/api/interface/dim`)
 			  .then((res) =>{
 				  if (res.state===200) {
 					
@@ -148,7 +150,8 @@ export default {
 			  })
 		},
 		getTop:function() {
-			this.$axios.get(`http://192.168.0.99:8027/portal/api/interface/refer`)
+			// 8027
+			this.$axios.get(`http://192.168.0.99:8020/portal/api/interface/refer`)
 			  .then((res) =>{
 				  console.log(res)
 				  if (res.state===200) {
