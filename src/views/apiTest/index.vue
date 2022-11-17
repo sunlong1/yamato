@@ -157,6 +157,7 @@ export default {
 			this.shows = parseInt(key)
 			this.selectId = selectId
 			this.getDetail(selectId)
+			window.scrollTo(0,0);
 	    },
 		selectChange () {
 			console.log(111)
