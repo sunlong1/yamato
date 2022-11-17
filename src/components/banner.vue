@@ -70,7 +70,7 @@
 			  </el-form-item>
 			</el-form>
 			<div slot="footer" @click="login('form')" class="dialog-footer">
-			  登录
+			  {{type==='password' || type==='code'?'登录':type==='register'?'立即注册':type==='forget'?'确认更改':'登录'}}
 			</div>
 			<div class="rtghj" v-if="type==='password' || type==='code'">没有账号？<span @click="type='register'">立即注册</span></div>
 			<div class="rtghj" v-if="type==='register'">已有账号<span @click="type='password'">去登录</span></div>
