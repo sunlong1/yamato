@@ -30,7 +30,7 @@
 			<div class="router_box">
 			    <div class="tyhj">
 			    	<div class="rtgh">
-			    		<img src="../../assets/index&api/hongxin.png"/>
+			    		<img :src="detailObj.picture"/>
 			    	</div>
 			    	<div class="ijhb">
 			    		<h6>{{detailObj.name}}</h6>
@@ -572,7 +572,6 @@ export default {
 						justify-content: center;
 						margin-right: 20px;
 						img {
-							width: 42px;
 							height: 48px;
 						}
 					}

@@ -19,7 +19,7 @@
 					@open="handleOpen"
 					@close="handleClose">
 					  <el-submenu v-for="item in dimList" :index="item.dimId.toString()" :key="item.dimId">
-						<template slot="title"><img class="sokj" :src="item.dimPicture"/>{{item.dimName}}</template>
+						<template slot="title"><img class="sokj" :src="item.dimDefPicture"/>{{item.dimName}} <span>({{item.intfNum}})</span></template>
 						<el-menu-item-group>
 						  <el-menu-item v-for="demo in item.intfList" :index="item.dimId+ '-' + demo.id" :key="demo.id">{{demo.name}}</el-menu-item>
 						</el-menu-item-group>
@@ -374,6 +374,11 @@ export default {
 						padding-right: 8px;
 						position: relative;
 						top: -3px;
+					}
+					span {
+						position: absolute;
+						right: 60px;
+						top: 0;
 					}
 				}
 			}
