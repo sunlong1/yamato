@@ -256,12 +256,16 @@
 			  } else {
 				this.$message.error(res.message);
 			  }
-			  this.ruleForm['paper'] = [
+			 try{
+				this.status = res.data.state
+				this.ruleForm = res.data
+				this.oldCompanyName = res.data.orgName
+				this.ruleForm['paper'] = [
 				  {name: 'result@2.png',url: res.data.businessLicense}
-			  ]
-			  this.status = res.data.state
-			  this.ruleForm = res.data
-			  this.oldCompanyName = res.data.orgName
+				]
+			 }catch(e){
+			 	//TODO handle the exception
+			 }
 		  })
 		  .catch(err=>{
 			  this.$message.error(err);
