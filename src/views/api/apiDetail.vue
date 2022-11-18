@@ -51,6 +51,7 @@
 						<li v-bind:class="{'active':rightIndex===2}" @click="rightIndex=2"><a @click="goWrong()">错误代码</a></li>
 						<li v-bind:class="{'active':rightIndex===3}" @click="rightIndex=3"><a @click="goExample()">示例代码</a></li>
 					</ul>
+					<div v-show="fixed" style="height: 40px;"></div>
 					<div class="fbnss">
 						<div class="iuyt">
 							<p><span>接口地址：</span>{{detailObj.url}}</p>
@@ -480,7 +481,7 @@ export default {
 		},
 		handleScroll() {
 			let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop // 滚动条偏移量
-			if (scrollTop>150) {
+			if (scrollTop>168) {
 				this.fixed = true
 			} else {
 				this.fixed = false
@@ -556,7 +557,7 @@ export default {
 		// this.getDimList()
 		this.getDetail(this.selectId)
 		this.handleScroll()
-		window.addEventListener('scroll',this.debounce(this.handleScroll, 50))
+		window.addEventListener('scroll',this.handleScroll)
 		// http://192.168.0.99:8027/portal/api/dim/interface/detail
 		// let params = {
 		// 	  name: '工商基本信息'
