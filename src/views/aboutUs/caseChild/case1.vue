@@ -2,7 +2,13 @@
     <div class="dlkj">
 		<h4>关于我们</h4>
 		<p>动态时序是一家商业信息及数据应用的服务提供商。基于商业系信息的基本逻辑与时间序列关系，通过对全球商事主体的海量商业信息进行整合、清洗、加工，利用时序图计算技术挖掘主体之间、信息之间的深度关系并形成衍生数据和标签，依托Daas服务平台提供多元化服务交付形式，为企业客户提供可直接应用于商业场景的数据技术服务，并对外提供标准化的SaaS产品。</p>
-    </div>
+		<div class="wewde">
+			<p>联系电话：13522760991</p>
+			<p>工作时间：周一至周五 9:00-19:00</p>
+			<p>电子邮箱：service@workatdata.com</p>
+			<p>公司地址：北京市海淀区善缘街立方庭大厦2段102</p>
+		</div>
+	</div>
 </template>
 <script>
 export default {
@@ -34,6 +40,12 @@ export default {
 			line-height: 28px;
 			font-weight: 400;
 			letter-spacing: 1px;
+		}
+		.wewde {
+			margin-top: 24px;
+			p {
+				line-height: 20px;
+			}
 		}
 	}
 </style>
