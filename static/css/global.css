@@ -108,3 +108,7 @@ ul, ol { list-style: none; }
 	background-color: #1C66E5;
 	border: 1px solid #1C66E5;
 }
+.yhwww .el-input__suffix {
+	position: absolute;
+	right: 40px;
+}

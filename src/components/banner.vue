@@ -34,14 +34,14 @@
 				  </span>
 				  <el-dropdown-menu slot="dropdown">
 				    <el-dropdown-item @click.native="goUserCenter"><i class="el-icon-chat-round"></i> 个人中心</el-dropdown-item>
-				    <el-dropdown-item  @click.native="loginout"><i class="el-icon-switch-button"></i> 退出登陆</el-dropdown-item>
+				    <el-dropdown-item  @click.native="loginout"><i class="el-icon-switch-button"></i> 退出登录</el-dropdown-item>
 				  </el-dropdown-menu>
 				</el-dropdown>
 			</li>
         </ul>
       </div>
 	  
-	  <el-dialog :visible.sync="$store.state.showLogin" width="360px">
+	  <el-dialog :visible.sync="$store.state.showLogin" :close-on-click-modal="false" width="360px">
 		<div class="vft6" v-loading="loading">
 			<!-- <img class="logo" src="../assets/logo.png"/> -->
 			<div class="oiuyg" v-if="type==='password' || type==='code'">
@@ -56,20 +56,22 @@
 			</div>
 			<el-form :model="form" ref="form" :rules="rules">
 			  <el-form-item prop="phone">
-			    <el-input placeholder="请输入手机号" v-model="form.phone" autocomplete="off" clearable></el-input>
+			    <el-input placeholder="请输入手机号" maxlength="11" v-model="form.phone" autocomplete="off" clearable></el-input>
 			  </el-form-item>
 			  <el-form-item class="rtghs" prop="code" v-if="type!='password'">
 			    <el-input placeholder="请输入短信验证码" maxlength="6" v-model="form.code" autocomplete="off"></el-input>
 				<div v-bind:class="{'gray': time!=60,'iughw':time===60}" @click="getCode">{{time===60?'获取验证码':time + 's'}}</div>
 			  </el-form-item>
-			  <el-form-item prop="password" v-if="type!='code'">
-			    <el-input placeholder="请输入密码（8-20位数字与字母组合）" type="password" v-model="form.password" autocomplete="off" clearable></el-input>
+			  <el-form-item class="yhwww" prop="password" v-if="type!='code'">
+			    <el-input placeholder="请输入密码（8-20位数字与字母组合）"  v-bind:type="seeTwo?'string':'password'" v-model="form.password" autocomplete="off" clearable></el-input>
+				<img @click="seeTwo=!seeTwo" :src="seeTwo?img2:img1"/>
 			  </el-form-item>
 			  <div class="dgtww">
-				<span  v-if="type==='password'" @click="type='forget'">忘记密码</span>  
+				<span v-if="type==='password'" @click="type='forget'">忘记密码</span>  
 			  </div>
-			  <el-form-item prop="password2" v-if="type==='forget'">
-			    <el-input placeholder="请确认密码（8-20位数字与字母组合）" type="password"  v-model="form.password2" autocomplete="off" clearable></el-input>
+			  <el-form-item class="yhwww" prop="password2" v-if="type==='forget'">
+			    <el-input placeholder="请确认密码（8-20位数字与字母组合）" v-bind:type="seeOne?'string':'password'"  v-model="form.password2" autocomplete="off" clearable></el-input>
+				<img @click="seeOne=!seeOne" :src="seeOne?img2:img1"/>
 			  </el-form-item>
 			  <el-form-item prop="company" v-if="type==='register'">
 			    <el-input placeholder="请输入企业名称全称" v-model="form.company" autocomplete="off" clearable></el-input>
@@ -147,7 +149,11 @@ let timer = null
       return {
         activeIndex: '1',
         activeIndex2: '1',
+		img1: require('../assets/common/ddd.png'),
+		img2: require('../assets/common/ddd_.png'),
 		input3: '',
+		seeOne: false,
+		seeTwo: false,
 		name: '',
 		form: {
 		  phone: '',
@@ -218,7 +224,7 @@ let timer = null
 		  let _this = this
 		  if(_this.disabledClick) return
 		  if(!/^1(3\d|4[5-9]|5[0-35-9]|6[567]|7[0-8]|8\d|9[0-35-9])\d{8}$/.test(this.form.phone)) {
-		  	this.$message.error('请先输入正确手机号');
+		  	this.$message.error('手机号输入有误');
 			return
 		  }
 		  let params = {
@@ -324,9 +330,9 @@ let timer = null
 		  });
 	  },
 	  loginout() {
-		  this.$confirm('您确定要退出登陆吗',{type: 'warning'})
+		  this.$confirm('您确定要退出登录吗',{type: 'warning'})
 		    .then(_ => {
-			 this.$message.success('退出登陆成功');
+			 this.$message.success('退出登录成功');
 			 this.loginStatus = false
 			 this.$cookies.remove('user')
 		  	done();
@@ -477,6 +483,18 @@ let timer = null
 			}
 			.el-form {
 				margin-top: 24px;
+				.yhwww {
+					position: relative;
+					img {
+						position: absolute;
+						right: 6px;
+						top: 6px;
+						width: 16px;
+						padding: 6px;
+						cursor: pointer;
+					}
+					
+				}
 			}
 			.rtghs {
 				position: relative;

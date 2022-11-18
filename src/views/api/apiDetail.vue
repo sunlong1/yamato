@@ -92,7 +92,7 @@
 							  </el-table-column>
 							  <el-table-column
 								prop="fill"
-								width="120"
+								width="100"
 								label="是否必填">
 								</el-table-column>
 							  <el-table-column
@@ -124,14 +124,17 @@
 							</div>
 							<img v-bind:class="{'ouuhs': !threeTap}" src="../../assets/jiantou/right_big.png"/>
 						</div>
-						<div v-bind:class="['yhnww',{'vghsdws': threeTap}]">
+						<div v-if="quaryData.length>0" v-bind:class="['yhnww',{'vghsdws': threeTap}]">
 							<el-table
 							  :data="quaryData"
+							  row-key="name"
+							  default-expand-all
+							  :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
 							  style="width: 100%">
 							  <el-table-column
 								prop="name"
 								label="参数名"
-								width="180">
+								width="300">
 							  </el-table-column>
 							  <el-table-column
 								prop="type"
@@ -208,14 +211,14 @@
 								import org.apache.http.impl.client.CloseableHttpClient;
 								import org.apache.http.impl.client.HttpClients;
 								import org.apache.http.util.EntityUtils;
-								
 								import java.io.IOException;
 								
 								public class HttpDemo {
 								
 								    public static void main(String[] args) {
 								        String secretkey = "您的secretkey";
-								        String url = "http://api.workatdata.com/open/dataxy/gongshang/base/info/query?keyword=万科企业股份有限公司";
+								        //请求示例地址
+								        String url = "请求的接口地址";
 								
 								        HttpGet httpGet = new HttpGet(url);
 								        httpGet.setHeader("secretkey", secretkey);
@@ -390,17 +393,7 @@ export default {
 						"category": "商标注册申请---申请收文",
 					}]
 				},
-			quaryData: [{
-				date1: 'keyword',
-				date2: 'string',
-				date3: '255',
-				date4: '企业id/企业名称/统一信用代码/注册号'
-			  },{
-				date1: 'keyword',
-				date2: 'string',
-				date3: '255',
-				date4: '企业id/企业名称/统一信用代码/注册号'
-			  }],
+			quaryData: [],
 			codeData: [
 				{
 					date1: '300000',
@@ -533,7 +526,19 @@ export default {
 				this.detailObj = res.data
 				try{
 					this.tableData = JSON.parse(res.data.reqParamPretty)
-					this.quaryData = JSON.parse(res.data.respFiledDesc)
+					let arr = JSON.parse(res.data.respFiledDesc)
+					arr.forEach((item,index)=>{
+						Object.keys(item).forEach(deom=>{
+							if (deom.indexOf('List')>-1) {
+								arr[index]['children'] = item[deom]
+							}
+						})
+						// if (item.equityChangeRecordList) {
+						// 	arr[index]['children'] = item.equityChangeRecordList
+						// }
+					})
+					this.quaryData = arr
+					console.log(this.quaryData)
 					this.respExample = JSON.parse(res.data.respExample)
 				}catch(e){
 					console.log(e)
