@@ -251,7 +251,7 @@
 		this.$axios.get('http://192.168.0.99:8020/user/org/cert/info',params)
 		  .then((res) =>{
 			  console.log(res)
-			  if (res.state===200) {
+			  if (res.state===200 || res.state===400 ) {
 				
 			  } else {
 				this.$message.error(res.message);

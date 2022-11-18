@@ -182,8 +182,8 @@
 				</div>
 				
 				<div class="wetdfw edffd">
-					<div class="rtyhe" id="example"  @click="fiveTap=!fiveTap">
-						<div class="ewdf">
+					<div class="rtyhe" id="example">
+						<div class="ewdf"  @click="fiveTap=!fiveTap">
 							<div class="vfths">
 								<span></span>
 								<p>示例代码</p>
@@ -199,7 +199,7 @@
 								<li @click="showIndex=5" v-bind:class="{'active': showIndex===5}">Node.js</li>
 							</ul>
 						</div>
-						<div v-bind:class="['ftyuj',{'vghsdws': fiveTap}]">
+						<div v-if="showIndex===1" v-bind:class="['ftyuj',{'vghsdws': fiveTap}]">
 							<pre>
 								package com.example.demo.http;
 								
@@ -240,6 +240,106 @@
 								        System.out.println(result);
 								    }
 								}
+							</pre>
+						</div>
+						<div v-if="showIndex===2" v-bind:class="['ftyuj',{'vghsdws': fiveTap}]">
+							<pre>
+								<?php
+								
+								$secretkey = "您的secretkey";
+								//请求示例地址
+								$url="请求的接口地址";
+								
+								$curl = curl_init();
+								$header = ["secretkey: $secretkey"];
+								
+								curl_setopt($curl, CURLOPT_URL, $url);
+								curl_setopt($curl, CURLOPT_HEADER, 0);
+								curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+								curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
+								
+								$data = curl_exec($curl);
+								curl_close($curl);
+								
+								// 打印结果
+								print_r($data);
+								
+								?>
+							</pre>
+						</div>
+						<div v-if="showIndex===3" v-bind:class="['ftyuj',{'vghsdws': fiveTap}]">
+							<pre>
+								package main
+								
+								import (
+								    "fmt"
+								    "io/ioutil"
+								    "net/http"
+								    "strings"
+								)
+								
+								func main() {
+								
+								    secretkey := "您的secretkey";
+								    //请求示例地址
+								    url := "请求的接口地址";
+								
+								    client := &http.Client{}
+								    req,_ := http.NewRequest("GET",url,nil)
+								    req.Header.Set("secretkey",secretkey)
+								
+								    resp,_ := client.Do(req)
+								    body, _ := ioutil.ReadAll(resp.Body)
+								    fmt.Printf(string(body))
+								}
+							</pre>
+						</div>
+						<div v-if="showIndex===4" v-bind:class="['ftyuj',{'vghsdws': fiveTap}]">
+							<pre>
+								# -*- coding: utf-8 -*-
+								# pip install request
+								import requests
+								
+								secretkey = "您的secretkey"
+								# 请求示例地址
+								url = "请求的接口地址"
+								
+								headers = {"secretkey": secretkey}
+								try:
+								    response = requests.get(url, headers=headers)
+								    print(response)
+								except Exception as e:
+								    print(e)
+						
+							</pre>
+						</div>
+						<div v-if="showIndex===5" v-bind:class="['ftyuj',{'vghsdws': fiveTap}]">
+							<pre>
+								var secretkey="secretkey";
+								//请求示例地址
+								var url="请求的接口地址"
+								var http = require("http");
+								
+								var options = {
+								    hostname:'api.workatdata.com',
+								    method:'GET',
+								    path:url,
+								    headers:{
+								        "secretkey": secretkey
+								    }
+								}
+								
+								var req = http.request(options, function (res) {
+								    res.on('data', function (chunk) {
+								        console.log('result: ' + chunk);
+								    });
+								});
+								
+								req.on('error', function (e) {
+								    console.log('problem with request: ' + e.message);
+								});
+								
+								req.end();
 							</pre>
 						</div>
 					</div>
@@ -480,7 +580,7 @@ export default {
 					justify-content: space-between;
 					background: #FBFBFB;
 					height: 48px;
-					padding: 0 20px;
+					padding: 0 39px 0 20px;
 					box-sizing: border-box;
 					.iuhg {
 						display: flex;
@@ -504,7 +604,7 @@ export default {
 					}
 					span {
 						position: absolute;
-						right: 60px;
+						right: 42px;
 						top: 0;
 					}
 				}
@@ -589,9 +689,11 @@ export default {
 						line-height: 39px;
 						text-align: center;
 						font-size: 14px;
+						cursor: pointer;
 						a {
 							display: block;
 							color: #333;
+							cursor: pointer;
 						}
 					}
 					li.active {
@@ -639,6 +741,7 @@ export default {
 							margin-top: 8px;
 							margin-bottom: 16px;
 							border-radius: 2px;
+							cursor: pointer;
 						}
 					}
 					.rfghj {
@@ -652,6 +755,7 @@ export default {
 						display: flex;
 						justify-content: space-between;
 						margin-bottom: 16px;
+						cursor: pointer;
 						.vfths {
 							display: flex;
 							align-items: center;
@@ -737,7 +841,7 @@ export default {
 						width: 100%;
 						height: 100%;
 						position: absolute;
-						left: -542px;
+						left: -342px;
 						top:0
 					}
 				}

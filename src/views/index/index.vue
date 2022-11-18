@@ -7,7 +7,7 @@
 	  </div>
 	  <div class="our-service">
 		  <h1>我们的服务</h1>
-		  <p class="english">Our service</p>
+		  <p class="english">Our services</p>
 		  <ul class="tabs">
 			  <li @click="index=1" v-bind:class="{'active': index===1}">数据服务</li>
 			  <li @click="index=2" v-bind:class="{'active': index===2}">监控服务</li>
@@ -20,7 +20,7 @@
 				  <li>
 					  <img src="../../assets/index&api/one.png"/>
 					  <div class="texts">
-						  <h6>监控策略不同</h6>
+						  <h6>检测策略不同</h6>
 						  <p>每日新增数百万的企业商业信息，针对信息量级不同的小企业和大企业配置不同的数据更新和信息监测策略</p>
 					  </div>
 				  </li>
@@ -71,7 +71,7 @@
 			<li>
 				<img src="../../assets/index&api/444.png"/>
 				<h6>可行的解决方案</h6>
-				<p>可实施解决方案包括：企业主数据整理和填充、客商风险监控、税源发现、寻客画像等</p>
+				<p>已实施解决方案包括：企业主数据整理和填充、客商风险监控、税源发现、寻客画像等</p>
 			</li>
 		</ul>
 	</div>
@@ -90,7 +90,7 @@
 			</li>
 			<li>
 				<h6>经营发展信息</h6>
-				<p>产品与服务、股权质押、新闻舆情、招聘信息、招投标、投融资信息、微博官网信息</p>
+				<p>产品与服务、股权质押、新闻舆情、招聘信息、招投标、投融资信息、微博官方信息</p>
 			</li>
 			<li>
 				<h6>司法诉讼信息</h6>
@@ -187,6 +187,7 @@ export default {
 				  color: #666666;
 				  font-size: 18px;
 				  padding-bottom: 8px;
+				  cursor: pointer;
 			  }
 			  .active {
 				  color: #1C66E5;

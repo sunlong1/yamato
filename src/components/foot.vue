@@ -15,16 +15,16 @@
 				<ul>
 					<li>关于我们</li>
 					<li><router-link to="/aboutUs/case1">关于我们</router-link></li>
-					<li>用户协议</li>
-					<li>隐私政策</li>
-					<li>认证服务协议</li>
+					<li><router-link to="/aboutUs/case2">用户协议</router-link></li>
+					<li><router-link to="/aboutUs/case3">隐私政策</router-link></li>
+					<li><router-link to="/aboutUs/case4">认证服务协议</router-link></li>
 				</ul>
-				<ul>
+				<ul class="wdwed">
 					<li>联系我们</li>
-					<li>联系电话：400-608-0000</li>
-					<li>工作时间：工作日 8：30 - 20：00</li>
-					<li>电子邮箱：bd@tianyancha.com</li>
-					<li>公司地址：北京市海淀区知春路中国微信<br/>通讯大厦</li>
+					<li>联系电话：13522760991</li>
+					<li>工作时间：周一至周五 9:00-19:00</li>
+					<li>电子邮箱：service@workatdata.com</li>
+					<li>公司地址：北京市海淀区善缘街立方庭大厦2段102</li>
 				</ul>
 			</div>
 		</div>
@@ -82,6 +82,17 @@ export default {
 						&:hover {
 							opacity: 1;
 						}
+					}
+				}
+			}
+			.wdwed {
+				li {
+					cursor: auto;
+					&:first-child:hover {
+						opacity: 1;
+					}
+					&:hover {
+						opacity: 0.8;
 					}
 				}
 			}

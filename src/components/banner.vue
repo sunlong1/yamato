@@ -26,8 +26,17 @@
 			<li v-if="!loginStatus" class="register" @click="type='register';$store.commit('setShowLogin',1)">
 				立即注册
 			</li>
-			<li v-if="loginStatus" class="header" @click="goUserCenter">
-				<span>{{name}}</span> <el-avatar :size="24" src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
+			
+			<li v-if="loginStatus" class="header">
+				<el-dropdown>
+				  <span class="el-dropdown-link">
+				    <span>{{name}}</span> <img src="../assets/header.png"></img>
+				  </span>
+				  <el-dropdown-menu slot="dropdown">
+				    <el-dropdown-item @click.native="goUserCenter"><i class="el-icon-chat-round"></i> 个人中心</el-dropdown-item>
+				    <el-dropdown-item  @click.native="loginout"><i class="el-icon-switch-button"></i> 退出登陆</el-dropdown-item>
+				  </el-dropdown-menu>
+				</el-dropdown>
 			</li>
         </ul>
       </div>
@@ -75,7 +84,7 @@
 			<div class="rtghj" v-if="type==='password' || type==='code'">没有账号？<span @click="type='register'">立即注册</span></div>
 			<div class="rtghj" v-if="type==='register'">已有账号<span @click="type='password'">去登录</span></div>
 			<div class="oeiuy" v-if="type==='forget'"  @click="type='password'"><img src="../assets/common/return.png"/> <span>返回登录</span></div>
-			<div class="erfgh" v-if="type==='password' || type==='code'"><el-checkbox v-model="checked">我已阅读并同意<router-link @click.native="dialogFormVisible=false" to="/aboutUs/case2?name=用户协议&id=1">《用户协议》</router-link>和<router-link @click.native="dialogFormVisible=false" to="/aboutUs/case3?name=隐私政策&id=2">《隐私政策》</router-link></el-checkbox></div>
+			<div class="erfgh" v-if="type==='password' || type==='code'"><el-checkbox v-model="checked">我已阅读并同意<router-link @click.native="$store.commit('setShowLogin',0)" to="/aboutUs/case2?name=用户协议&id=1">《用户协议》</router-link>和<router-link @click.native="$store.commit('setShowLogin',0)" to="/aboutUs/case3?name=隐私政策&id=2">《隐私政策》</router-link></el-checkbox></div>
 		</div>
 	  </el-dialog>
     </div>
@@ -139,7 +148,7 @@ let timer = null
         activeIndex: '1',
         activeIndex2: '1',
 		input3: '',
-		name: 'sunlong',
+		name: '',
 		form: {
 		  phone: '',
 		  code: '',
@@ -202,6 +211,7 @@ let timer = null
         console.log(key, keyPath);
       },
 	  goUserCenter () {
+		  console.log(111)
 		  this.$router.push('/center/case1')
 	  },
 	  getCode() {
@@ -313,6 +323,16 @@ let timer = null
 			}
 		  });
 	  },
+	  loginout() {
+		  this.$confirm('您确定要退出登陆吗',{type: 'warning'})
+		    .then(_ => {
+			 this.$message.success('退出登陆成功');
+			 this.loginStatus = false
+			 this.$cookies.remove('user')
+		  	done();
+		    })
+		    .catch(_ => {});
+	  },
 	  solve(user) {
 		  console.log(user)
 		  this.loginStatus = true
@@ -320,6 +340,7 @@ let timer = null
 		  this.$store.commit('setToken',user.token)
 	  },
 	  checkLogin() {
+		  // this.$cookies.set('user', {userName:'sunlong',token:'byujuww'}, { expires: 0.7 })
 		  let user = this.$cookies.getJSON('user')
 		  if (user && user.token) {
 			  this.solve(user)
@@ -402,9 +423,18 @@ let timer = null
 		  color: #333333;
 		  display: flex;
 		  align-items: center;
-		  span {
+		  .el-dropdown-link {
+			 display: flex;
+			 align-items: center;
+			 cursor: pointer;
+			 span {
 			  padding-right: 10px;
 			  font-weight: normal;
+			 } 
+		  }
+		 
+		  img {
+			  width: 30px;
 		  }
 	  }
 	}
