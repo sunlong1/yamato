@@ -37,7 +37,7 @@
 						<div class="rtgh">
 							<img :src="item.picture"/>
 						</div>
-						<div class="ijhb" @click="goDetail(shows,item.id)">
+						<div class="ijhb" @click="goApply(shows,item.id)">
 							<h6>{{item.name}}</h6>
 							<p class="tyhn">{{item.descr}}</p>
 							<div class="gtrr">
@@ -95,6 +95,14 @@ export default {
 		},
 		goDetail(dimId,index) {
 			this.$router.push(`/apiDetail?dimId=${dimId}&id=${index}`)
+		},
+		goApply() {
+			let user = this.$cookies.getJSON('user')
+			if (user && user.userId) {
+				this.$router.push('/center/case3?from=detail')
+			} else {
+				this.$store.commit('setShowLogin',1)
+			}
 		},
 		handleCurrentChange(val) {
 			console.log(val)
@@ -317,6 +325,7 @@ export default {
 						}
 						.ijhb {
 							width: 806px;
+							cursor: pointer;
 							h6 {
 							  font-size: 18px;
 							  margin-bottom: 4px;
