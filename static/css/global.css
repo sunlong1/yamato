@@ -124,3 +124,8 @@ ul, ol { list-style: none; }
 	background-color: #1C66E5;
 	border-color: #1C66E5;
 }
+.erfr {
+	padding: 16px 0 20px;
+	display: flex;
+	justify-content: end;
+}
