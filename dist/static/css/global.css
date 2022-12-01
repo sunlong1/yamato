@@ -129,3 +129,6 @@ ul, ol { list-style: none; }
 	display: flex;
 	justify-content: end;
 }
+ .other-state .el-form-item__label:before {
+	opacity: 0 !important;
+}
