@@ -135,3 +135,16 @@ ul, ol { list-style: none; }
 .no-star .el-upload--picture-card{
 	display: none;
 }
+/* 问号 */
+.thssw {
+	display: block;
+	width: 14px;
+	height: 14px;
+	border-radius: 14px;
+	color: #CCCCCC;
+	text-align: center;
+	line-height: 14px;
+	border: 1px solid #CCCCCC;
+	margin-left: 8px;
+	font-size: 14px;
+}
