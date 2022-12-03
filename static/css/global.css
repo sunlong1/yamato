@@ -148,3 +148,6 @@ ul, ol { list-style: none; }
 	margin-left: 8px;
 	font-size: 14px;
 }
+.el-textarea__inner {
+	color: #606266;
+}
