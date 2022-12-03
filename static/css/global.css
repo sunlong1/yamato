@@ -156,10 +156,13 @@ ul, ol { list-style: none; }
 .ertghj .el-input.is-disabled .el-input__inner {
 	background-color: #fff;
 	color: #606266;
+	cursor: auto;
 }
+
 .ertghj .el-textarea.is-disabled .el-textarea__inner {
 	background-color: #fff;
 	color: #606266;
+	cursor: auto;
 }
 /* .hsjsw input{
 	height: 60px;
