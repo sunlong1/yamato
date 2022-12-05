@@ -163,6 +163,10 @@ ul, ol { list-style: none; }
 	background-color: #fff;
 	color: #606266;
 	cursor: auto;
+	font-family: 'PingFang SC';
+}
+.ertghj .el-textarea {
+	font-family: 'PingFang SC';
 }
 /* .hsjsw input{
 	height: 60px;
