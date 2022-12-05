@@ -135,6 +135,9 @@ ul, ol { list-style: none; }
 .no-star .el-upload--picture-card{
 	display: none;
 }
+.second-upload .el-upload--picture-card{
+	display: none;
+}
 /* 问号 */
 .thssw {
 	display: block;
@@ -166,6 +169,9 @@ ul, ol { list-style: none; }
 	font-family: 'PingFang SC';
 }
 .ertghj .el-textarea {
+	font-family: 'PingFang SC';
+}
+.ertghj textarea {
 	font-family: 'PingFang SC';
 }
 /* .hsjsw input{
